@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -13,8 +13,8 @@ public class ComponentCreator {
 	
 	public Button getButton(String buttonName) {
 		Button simpleButton = new Button(buttonName);
-		simpleButton.setMaxSize(100, 45);
-		simpleButton.setMinSize(100, 45);
+		simpleButton.setMaxSize(100, 30);
+		simpleButton.setMinSize(100, 30);
 		return simpleButton;
 	}
 	
