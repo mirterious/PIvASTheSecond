@@ -39,4 +39,20 @@ public class TravelTime {
 	public int getMinutes() {
 		return minutes;
 	}
+	
+	
+	public String toString() {
+		String date = "";
+		if (years != 0) {
+			date = years + " y ";
+		}
+		if (month != 0) {
+			date = date + month + " m ";
+		}
+		if (days != 0) {
+			date = date + days + " d ";
+		}
+		date = date + hours + " h " + minutes + " min";
+		return date;
+	}
 }

@@ -3,7 +3,6 @@ package view.dialogs;
 import java.util.ArrayList;
 import java.util.List;
 import controller.Controller;
-import controller.DateAndTimeParser;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +15,7 @@ import model.Train;
 import view.ComponentCreator;
 import view.Table;
 
-public class SearchByDepTimeOrArrTime {
+public class SearchByDepStationOrArrStation {
 
 	private Stage stage;
 	
@@ -28,14 +27,11 @@ public class SearchByDepTimeOrArrTime {
 	
 	private Table table;
 	
-	private DateAndTimeParser parser;
-	
-	public SearchByDepTimeOrArrTime(Controller controller) {
+	public SearchByDepStationOrArrStation(Controller controller) {
 		this.controller = controller;
 		table = new Table(controller.copy());
 		table.update();
 		stage = new Stage();
-		parser = new DateAndTimeParser();
 		mainPane = new VBox();
 		creator = new ComponentCreator();
 		buildDialog();
@@ -45,35 +41,23 @@ public class SearchByDepTimeOrArrTime {
 		
 		GridPane pane = new GridPane();
 		
-		Label depStationLabel = creator.getLabel("Bottom border");
-		pane.add(depStationLabel, 2, 0);
+		Label depStationLabel = creator.getLabel("Dep Station");
+		pane.add(depStationLabel, 0, 0);
 		
-		Label arrStationLabel = creator.getLabel("Top border");
-		pane.add(arrStationLabel, 2, 1);
+		Label arrStationLabel = creator.getLabel("Arr Station");
+		pane.add(arrStationLabel, 0, 1);
 		
-		TextField departureTopText = creator.getTextField("dep");
-		pane.add(departureTopText, 0, 1);
+		TextField departureStationText = creator.getTextField();
+		pane.add(departureStationText, 1, 0);
 		
-		TextField depatureBottomText = creator.getTextField("dep");
-		pane.add(depatureBottomText, 0, 0);
-		
-		Label delTimeLabel = creator.getLabel("Dep time");
-		pane.add(delTimeLabel, 0, 2);
-		
-		TextField arrivingTopText = creator.getTextField();
-		pane.add(arrivingTopText, 1, 1);
-		
-		TextField arrivingBottomText = creator.getTextField();
-		pane.add(arrivingBottomText, 1, 0);
-		
-		Label arrTimeLabel = creator.getLabel("Arr time");
-		pane.add(arrTimeLabel, 1, 2);
+		TextField arrivingStationText = creator.getTextField();
+		pane.add(arrivingStationText, 1, 1);
 		
 		Button addTrain = creator.getButton("Search");
 		addTrain.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
-			trains.addAll(controller.searchByDepTime(parser.convertToTime(departureTopText.getText()), parser.convertToTime(depatureBottomText.getText())));
-			trains.addAll(controller.searchByArrTime(parser.convertToTime(arrivingTopText.getText()), parser.convertToTime(arrivingBottomText.getText())));
+			trains.addAll(controller.searchByDepStation(departureStationText.getText()));
+			trains.addAll(controller.searchByArrStation(arrivingStationText.getText()));
 			table.recreate();
 			table.addContent(trains);
 			table.update();

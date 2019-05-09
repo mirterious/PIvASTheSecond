@@ -3,15 +3,15 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+public class Schedule {
 	
 	private List<Train> trains;
 	
-	public Model() {
+	public Schedule() {
 		trains = new ArrayList<>();
 	}
 	
-	public Model(List<Train> trains) {
+	public Schedule(List<Train> trains) {
 		this.trains = trains;
 	}
 	
@@ -19,7 +19,11 @@ public class Model {
 		this.trains = trains;
 	}
 	
-	public List<Train> getTrains( ) {
+	public List<Train> getTrains() {
 		return trains;
+	}
+	
+	public List<Train> copy() {
+		return new ArrayList<Train>(trains);
 	}
 }

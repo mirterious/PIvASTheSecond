@@ -6,7 +6,7 @@ import controller.DateAndTimeParser;
 public class Train {
 	
 	private DateAndTimeParser parser;
-	
+
 	private String number;
 	
 	private Station departure;
@@ -31,57 +31,57 @@ public class Train {
 		this.travelTime = parser.countTravelTime(departureDate, arrivingDate);
 	}
 	
-	public void setNumber(String number) {
-		this.number = number;
-	}
-	
 	public String getNumber() {
 		return number;
 	}
-	
-	public void setDepartureStation(Station station) {
-		this.departure = station;
+
+	public void setNumber(String number) {
+		this.number = number;
 	}
-	
-	public Station getDepartureStation() {
+
+	public Station getDeparture() {
 		return departure;
 	}
-	
-	public void setArrivingStation(Station station) {
-		this.arriving = station;
+
+	public void setDeparture(Station departure) {
+		this.departure = departure;
 	}
-	
-	public Station getArrivingStation() {
+
+	public Station getArriving() {
 		return arriving;
 	}
-	
-	public void setDepartureDate(LocalDateTime date) {
-		this.departureDate = date;
+
+	public void setArriving(Station arriving) {
+		this.arriving = arriving;
 	}
-	
+
 	public LocalDateTime getDepartureDate() {
 		return departureDate;
 	}
-	
-	public void setArrivingDate(LocalDateTime date) {
-		this.arrivingDate = date;
+
+	public void setDepartureDate(LocalDateTime departureDate) {
+		this.departureDate = departureDate;
 	}
-	
+
 	public LocalDateTime getArrivingDate() {
 		return arrivingDate;
 	}
-	
-	public void setTravelTime(TravelTime time) {
-		this.travelTime = time;
+
+	public void setArrivingDate(LocalDateTime arrivingDate) {
+		this.arrivingDate = arrivingDate;
 	}
-	
+
 	public TravelTime getTravelTime() {
 		return travelTime;
+	}
+
+	public void setTravelTime(TravelTime travelTime) {
+		this.travelTime = travelTime;
 	}
 	
 	@Override
 	public String toString() {
-		String train = number+" "+departure+" "+arriving+" "+departureDate+" "+arrivingDate+" "+parser.printTravelTime(travelTime);
+		String train = number+" "+departure+" "+arriving+" "+departureDate+" "+arrivingDate+" "+travelTime;
 		return train;
 	}
 }

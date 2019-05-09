@@ -1,7 +1,11 @@
 package view;
 
+import java.io.File;
+import java.time.LocalDate;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -11,41 +15,63 @@ public class ComponentCreator {
 	
 	public ComponentCreator() {};
 	
-	public Button getButton(String buttonName) {
-		Button simpleButton = new Button(buttonName);
-		simpleButton.setMaxSize(100, 30);
-		simpleButton.setMinSize(100, 30);
-		return simpleButton;
+	public Button getButton(String name) {
+		Button button = new Button(name);
+		button.setMaxSize(100, 30);
+		button.setMinSize(100, 30);
+		return button;
+	}
+	
+	public Button getButton() {
+		Button button = new Button();
+		button.setMaxSize(100, 30);
+		button.setMinSize(100, 30);
+		return button;
 	}
 	
 	public ComboBox<String> getComboBox(String ...values) {
-		ComboBox<String> simpleComboBox = new ComboBox<>();
-		simpleComboBox.setMaxSize(100, 40);
-		simpleComboBox.setMinSize(150, 50);
-		simpleComboBox.getItems().addAll(values);
-		return simpleComboBox;
+		ComboBox<String> comboBox = new ComboBox<>();
+		comboBox.setMaxSize(100, 40);
+		comboBox.setMinSize(150, 50);
+		comboBox.getItems().addAll(values);
+		return comboBox;
 	}
 	
 	public Label getLabel(String name) {
-		Label simpleLabel = new Label(name);
-		simpleLabel.setMaxSize(100, 40);
-		simpleLabel.setMinSize(100, 40);
-		return simpleLabel;
+		Label label = new Label(name);
+		label.setMaxSize(100, 40);
+		label.setMinSize(100, 40);
+		return label;
+	}
+	
+	public TextField getTextField(String name) {
+		TextField textField = new TextField(name);
+		textField.setMaxWidth(100);
+		textField.setMinWidth(100);
+		return textField;
 	}
 	
 	public TextField getTextField() {
-		TextField simpleTextField = new TextField();
-		simpleTextField.setMaxWidth(100);
-		simpleTextField.setMinWidth(100);
-		return simpleTextField;
+		TextField textField = new TextField();
+		textField.setMaxWidth(100);
+		textField.setMinWidth(100);
+		return textField;
+	}
+
+	public DatePicker getDatePicker() {
+		DatePicker datePicker = new DatePicker();
+		datePicker.setValue(LocalDate.now());
+		datePicker.setShowWeekNumbers(true);
+		return datePicker;
 	}
 	
     public FileChooser getFileChooser() {
-    	FileChooser defaultFileChooser = new FileChooser();
-    	defaultFileChooser.setTitle("Chooser");
-    	defaultFileChooser.setInitialFileName("filename.xml");
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle("Chooser");
+    	fileChooser.setInitialFileName("filename.xml");
+    	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
     	ExtensionFilter filter = new ExtensionFilter("XML", "*.xml");
-    	defaultFileChooser.getExtensionFilters().add(filter);
-    	return defaultFileChooser;
+    	fileChooser.getExtensionFilters().add(filter);
+    	return fileChooser;
     }
 }

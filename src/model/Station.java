@@ -16,8 +16,7 @@ public class Station {
 	
 	@Override
 	public String toString() {
-		String station = name;
-		return station;
+		return name;
 	}
 	
 	public void setStation(String name) {

@@ -1,7 +1,6 @@
 package view;
 
 import java.time.LocalDateTime;
-
 import model.TravelTime;
 import model.Station;
 import model.Train;
@@ -17,15 +16,15 @@ public class ShowTable {
 	public String getNumber() {
 		return train.getNumber();
 	}
-	
-	public Station getDepartureStation() {
-		return train.getDepartureStation();
+
+	public Station getDeparture() {
+		return train.getDeparture();
 	}
-	
-	public Station getArrivingStation() {
-		return train.getArrivingStation();
+
+	public Station getArriving() {
+		return train.getArriving();
 	}
-	
+
 	public LocalDateTime getDepartureDate() {
 		return train.getDepartureDate();
 	}
@@ -33,7 +32,7 @@ public class ShowTable {
 	public LocalDateTime getArrivingDate() {
 		return train.getArrivingDate();
 	}
-	
+
 	public TravelTime getTravelTime() {
 		return train.getTravelTime();
 	}

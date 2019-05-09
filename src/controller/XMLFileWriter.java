@@ -19,13 +19,13 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class XMLWriter {
+public class XMLFileWriter {
 
 	private DocumentBuilderFactory builderFactory;
 
 	private DocumentBuilder builder;
 
-	public XMLWriter() {
+	public XMLFileWriter() {
 		builderFactory = DocumentBuilderFactory.newInstance();
 		try {
 			builder = builderFactory.newDocumentBuilder();
@@ -42,9 +42,9 @@ public class XMLWriter {
 
 			Element xmlNumber = converse(train.getNumber(), xmlDocument);
 			xmlTrain.appendChild(xmlNumber);
-			Element xmlDepStation = converse(train.getDepartureStation(), xmlDocument, "departure");
+			Element xmlDepStation = converse(train.getDeparture(), xmlDocument, "departure");
 			xmlTrain.appendChild(xmlDepStation);
-			Element xmlArrStation = converse(train.getArrivingStation(), xmlDocument, "arriving");
+			Element xmlArrStation = converse(train.getArriving(), xmlDocument, "arriving");
 			xmlTrain.appendChild(xmlArrStation);
 			Element xmlDepDate = converse(train.getDepartureDate(), xmlDocument, "departureDate");
 			xmlTrain.appendChild(xmlDepDate);

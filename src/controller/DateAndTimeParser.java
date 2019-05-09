@@ -1,6 +1,8 @@
 package controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 import model.TravelTime;
@@ -22,6 +24,40 @@ public class DateAndTimeParser {
 		
 		LocalDateTime newDate = LocalDateTime.of(year, month, day, hours, minutes);
 		return newDate;
+	}
+	
+	public LocalTime convertToTime(String time) {
+		String[] parsedTime = time.split("\\:");
+		
+		int hours = Integer.parseInt(parsedTime[0]);
+		int minutes = Integer.parseInt(parsedTime[1]);
+		
+		LocalTime newTime = LocalTime.of(hours, minutes);
+		return newTime;
+	}
+	
+	public LocalDate convertToDate(String date) {
+		String[] parsedDate = date.split("\\-");
+		
+		int year = Integer.parseInt(parsedDate[0]);
+		int month = Integer.parseInt(parsedDate[1]);
+		int day = Integer.parseInt(parsedDate[2]);
+		
+		LocalDate newDate = LocalDate.of(year, month, day);
+		return newDate;
+	}
+	
+	public TravelTime convertToTravelTime(String time) {
+		String[] parsedTime = time.split("\\s");
+		
+		int years = Integer.parseInt(parsedTime[0]);
+		int months = Integer.parseInt(parsedTime[1]);
+		int days = Integer.parseInt(parsedTime[2]);
+		int hours = Integer.parseInt(parsedTime[3]);
+		int minutes = Integer.parseInt(parsedTime[4]);
+		
+		TravelTime searchingTime = new TravelTime(years, months, days, hours, minutes);
+		return searchingTime;
 	}
 
 	public TravelTime countTravelTime(LocalDateTime departure, LocalDateTime arriving) {
@@ -45,17 +81,5 @@ public class DateAndTimeParser {
 
 		TravelTime result = new TravelTime((int)years, (int)months, (int)days, (int)hours, (int)minutes);
 		return result;
-	}
-	
-	public String printTravelTime(TravelTime time) {
-		String date = "";
-		if (time.getMonth() != 0) {
-			date = time.getMonth() + " months ";
-		}
-		if (time.getDays() != 0) {
-			date = date + time.getDays() + " days ";
-		}
-		date = date + time.getHours() + " hours " + time.getMinutes() + " minutes";
-		return date;
 	}
 }

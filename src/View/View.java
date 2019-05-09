@@ -1,52 +1,47 @@
 package view;
-//import controller.Controller;
-import model.Model;
 
+import model.Schedule;
+import controller.Controller;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class View {
 
-    private Stage stage;
+	private Stage stage;
 
-    private Pane mainPane;
+	private Pane mainPane;
 
-    //private Controller controller;
+	private Controller controller;
 
-    //private Table table;
+	private Table table;
 
-    private ControlButtons tools;
+	//private SearchAndDeletePanel panel;
 
-   // private MenuPanel menu;
+	private Filemenu menu;
 
-    public View(Stage stage) {
-	this.stage = stage;
-	//Model model = new Model();
-	mainPane = new VBox();
-	//controller = new Controller(model);
-	//table = new Table(model.getStudents());
-	//menu = new MenuPanel(controller, table, stage);
-	tools = new ControlButtons();
-	configure();
-	configureStage();
-    }
-    
-    public void show() {
-    	stage.show();
-    }
+	public View(Stage stage) {
+		this.stage = stage;
+		Schedule model = new Schedule();
+		mainPane = new VBox();
+		controller = new Controller(model);
+		table = new Table(model.getTrains());
+		menu = new Filemenu(controller, table, stage);
+		//panel = new SearchAndDeletePanel();
+		configure();
+	}
 
-    private void configure() {
-    	Pane contentPane = new HBox();
-    	contentPane.getChildren().add(tools.getPane());
-		mainPane.getChildren().add(contentPane);
-    }
+	public void show() {
+		stage.show();
+	}
 
-    private void configureStage() {
-    	stage.setScene(new Scene(mainPane));
-    	stage.setMinHeight(650);
-    	stage.setMinWidth(800);
-    }
+	private void configure() {
+		Pane pane = new VBox();
+		pane.getChildren().addAll(table.getPane()/*,/* panel.getPane()*/);
+		mainPane.getChildren().addAll(menu.getPane(), pane);
+		stage.setScene(new Scene(mainPane));
+		stage.setMinHeight(700);
+		stage.setMinWidth(800);
+	}
 }
