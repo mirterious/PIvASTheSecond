@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.List;
 import model.Train;
 import view.dialogs.AddTrainDialog;
+import view.dialogs.DeleteByDepOrArrStation;
+import view.dialogs.DeleteByDepTimeArrTime;
+import view.dialogs.DeleteByNumberOrDepDate;
+import view.dialogs.DeleteByTravelTime;
 import view.dialogs.SearchByDepStationOrArrStation;
 import view.dialogs.SearchByDepTimeOrArrTime;
 import view.dialogs.SearchByNumberOrDepDate;
@@ -34,7 +38,7 @@ public class Filemenu {
 		this.table = table;
 		fileBar = new MenuBar();
 		pane = new Pane();
-		configureFileMenu();
+		addFileMenu();
 		addTrainMenu();
 		addSearchMenu();
 		addDeleteMenu();
@@ -45,7 +49,7 @@ public class Filemenu {
 		return pane;
 	}
 
-	private void configureFileMenu() {
+	private void addFileMenu() {
 		fileBar.setMinWidth(1200);
 		fileBar.setMaxWidth(1600);
 		
@@ -126,32 +130,36 @@ public class Filemenu {
 	}
 	
 	public void addDeleteMenu() {
-		MenuItem deleteByDepOrArrStation = new MenuItem("DepOrArrStation");
-		deleteByDepOrArrStation.setOnAction(e -> {
-			SearchByDepStationOrArrStation dialog = new SearchByDepStationOrArrStation(controller);
+		MenuItem searchByDepOrArrStation = new MenuItem("Dep Or Arr Station");
+		searchByDepOrArrStation.setOnAction(e -> {
+			DeleteByDepOrArrStation dialog = new DeleteByDepOrArrStation(controller);
 			dialog.call();
+			table.update();
 		});
 		
-		MenuItem deleteByNumberOrDepDate = new MenuItem("Number or Dep Date");
-		deleteByNumberOrDepDate.setOnAction(e -> {
-			SearchByNumberOrDepDate dialog = new SearchByNumberOrDepDate(controller);
+		MenuItem searchByNumberOrDepDate = new MenuItem("Number or Dep Date");
+		searchByNumberOrDepDate.setOnAction(e -> {
+			DeleteByNumberOrDepDate dialog = new DeleteByNumberOrDepDate(controller);
 			dialog.call();
+			table.update();
 		});
 		
-		MenuItem deleteByDepTimeOrArrTime = new MenuItem("Dep/Arr Time");
-		deleteByDepTimeOrArrTime.setOnAction(e -> {
-			SearchByNumberOrDepDate dialog = new SearchByNumberOrDepDate(controller);
+		MenuItem searchByDepTimeOrArrTime = new MenuItem("Dep/Arr Time");
+		searchByDepTimeOrArrTime.setOnAction(e -> {
+			DeleteByDepTimeArrTime dialog = new DeleteByDepTimeArrTime(controller);
 			dialog.call();
+			table.update();
 		});
 		
-		MenuItem deleteByTravelTime = new MenuItem("Travel time");
-		deleteByTravelTime.setOnAction(e -> {
-			SearchByTravelTime dialog = new SearchByTravelTime(controller);
+		MenuItem searchByTravelTime = new MenuItem("Travel time");
+		searchByTravelTime.setOnAction(e -> {
+			DeleteByTravelTime dialog = new DeleteByTravelTime(controller);
 			dialog.call();
+			table.update();
 		});
 		
 		Menu menu = new Menu("Delete");
-		menu.getItems().addAll(deleteByDepOrArrStation, deleteByNumberOrDepDate, deleteByDepTimeOrArrTime, deleteByTravelTime);
+		menu.getItems().addAll(searchByDepOrArrStation, searchByNumberOrDepDate, searchByDepTimeOrArrTime, searchByTravelTime);
 		fileBar.getMenus().add(menu);
 	}
 }

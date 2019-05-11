@@ -40,7 +40,7 @@ public class TravelTime {
 		return minutes;
 	}
 	
-	
+	@Override
 	public String toString() {
 		String date = "";
 		if (years != 0) {
@@ -55,4 +55,40 @@ public class TravelTime {
 		date = date + hours + " h " + minutes + " min";
 		return date;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + days;
+		result = prime * result + hours;
+		result = prime * result + minutes;
+		result = prime * result + month;
+		result = prime * result + years;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TravelTime other = (TravelTime) obj;
+		if (days != other.days)
+			return false;
+		if (hours != other.hours)
+			return false;
+		if (minutes != other.minutes)
+			return false;
+		if (month != other.month)
+			return false;
+		if (years != other.years)
+			return false;
+		return true;
+	}
+	
+	
 }

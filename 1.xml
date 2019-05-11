@@ -129,7 +129,7 @@
 	<train>
 		<number>3371</number>
 		<departure>Барановичи</departure>
-		<arriving>Минск	</arriving>
+		<arriving>Минск</arriving>
 		<departureDate>2019-04-26T16:09</departureDate>
 		<arrivingDate>2019-04-26T17:40</arrivingDate>
 	</train>
@@ -229,14 +229,35 @@
 		<departure>Колорадо</departure>
 		<arriving>Вашингтон</arriving>
 		<departureDate>2019-05-24T13:32</departureDate>
-		<arrivingDate>2019-011-27T01:38</arrivingDate>
+		<arrivingDate>2019-11-27T01:38</arrivingDate>
 	</train>
 	<train>
 		<number>M2362</number>
 		<departure>Лас-Вегас</departure>
 		<arriving>Колорадо</arriving>
 		<departureDate>2019-05-24T13:32</departureDate>
-		<arrivingDate>2019-011-27T01:38</arrivingDate>
+		<arrivingDate>2019-11-27T01:38</arrivingDate>
+	</train>
+	<train>
+		<number>1000</number>
+		<departure>Париж</departure>
+		<arriving>Краков</arriving>
+		<departureDate>2019-05-24T12:32</departureDate>
+		<arrivingDate>2019-06-03T15:38</arrivingDate>
+	</train>
+	<train>
+		<number>1245</number>
+		<departure>Москва</departure>
+		<arriving>Калининград</arriving>
+		<departureDate>2018-08-14T04:32</departureDate>
+		<arrivingDate>2018-06-23T13:38</arrivingDate>
+	</train>
+	<train>
+		<number>AYQE</number>
+		<departure>Магадан</departure>
+		<arriving>Москва</arriving>
+		<departureDate>2018-08-14T03:32</departureDate>
+		<arrivingDate>2018-08-28T16:34</arrivingDate>
 	</train>
 </trains>
-<!--(строки-4)/7   34-->
+<!--(строки-4)/7   37-->

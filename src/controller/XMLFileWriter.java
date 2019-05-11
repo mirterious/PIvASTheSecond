@@ -48,7 +48,7 @@ public class XMLFileWriter {
 			xmlTrain.appendChild(xmlArrStation);
 			Element xmlDepDate = converse(train.getDepartureDate(), xmlDocument, "departureDate");
 			xmlTrain.appendChild(xmlDepDate);
-			Element xmlArrDate = converse(train.getDepartureDate(), xmlDocument, "arrivingDate");
+			Element xmlArrDate = converse(train.getArrivingDate(), xmlDocument, "arrivingDate");
 			xmlTrain.appendChild(xmlArrDate);
 
 			xmlTrains.appendChild(xmlTrain);

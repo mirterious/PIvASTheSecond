@@ -16,9 +16,7 @@ public class View {
 	private Controller controller;
 
 	private Table table;
-
-	//private SearchAndDeletePanel panel;
-
+	
 	private Filemenu menu;
 
 	public View(Stage stage) {
@@ -28,7 +26,6 @@ public class View {
 		controller = new Controller(model);
 		table = new Table(model.getTrains());
 		menu = new Filemenu(controller, table, stage);
-		//panel = new SearchAndDeletePanel();
 		configure();
 	}
 
@@ -38,10 +35,10 @@ public class View {
 
 	private void configure() {
 		Pane pane = new VBox();
-		pane.getChildren().addAll(table.getPane()/*,/* panel.getPane()*/);
+		pane.getChildren().addAll(table.getPane());
 		mainPane.getChildren().addAll(menu.getPane(), pane);
 		stage.setScene(new Scene(mainPane));
-		stage.setMinHeight(700);
+		stage.setMinHeight(500);
 		stage.setMinWidth(800);
 	}
 }

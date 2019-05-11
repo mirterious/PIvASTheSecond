@@ -58,8 +58,7 @@ public class SearchByNumberOrDepDate {
 		addTrain.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
 			trains.addAll(controller.searchByNumber(numberText.getText()));
-			//trains.addAll(controller.searchByDepDate(depDateText.getValue()));
-			System.out.println(depDateText.getValue());
+			trains.addAll(controller.searchByDepDate(depDateText.getValue()));
 			table.recreate();
 			table.addContent(trains);
 			table.update();

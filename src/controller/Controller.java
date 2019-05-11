@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Schedule;
 import model.Train;
 import model.TravelTime;
@@ -78,22 +77,22 @@ public class Controller {
 		return result;
 	}
 	
-	public List<Train> searchByDepDate(LocalDate date) {
+	public List<Train> searchByDepDate(LocalDate date) {;
 		List<Train> result = new ArrayList<>();
 		List<Train> trains = model.copy();
 		for(Train train:trains) {
-			if (train.getDepartureDate().toLocalDate().equals(date)); {
+			if (train.getDepartureDate().toLocalDate().isEqual(date)) {
 				result.add(train);
 			}
 		}
 		return result;
 	}
 	
-	public List<Train> searchByTravelTime(String time) {
+	public List<Train> searchByTravelTime(TravelTime time) {
 		List<Train> result = new ArrayList<>();
 		List<Train> trains = model.copy();
 		for(Train train:trains) {
-			if (train.getTravelTime().toString().equals(time)); {
+			if (train.getTravelTime().equals(time)) {
 				result.add(train);
 			}
 		}
@@ -104,7 +103,8 @@ public class Controller {
 		List<Train> result = new ArrayList<>();
 		List<Train> trains = model.copy();
 		for (Train train:trains) {
-			if(train.getDepartureDate().toLocalTime().isAfter(bottom) && train.getDepartureDate().toLocalTime().isBefore(top)) {
+			if(train.getDepartureDate().toLocalTime().isAfter(bottom) 
+					&& train.getDepartureDate().toLocalTime().isBefore(top)) {
 				result.add(train);
 			}
 		}
@@ -115,10 +115,146 @@ public class Controller {
 		List<Train> result = new ArrayList<>();
 		List<Train> trains = model.copy();
 		for (Train train:trains) {
-			if(train.getArrivingDate().toLocalTime().isAfter(bottom) && train.getArrivingDate().toLocalTime().isBefore(top)) {
+			if(train.getArrivingDate().toLocalTime().isAfter(bottom) 
+					&& train.getArrivingDate().toLocalTime().isBefore(top)) {
 				result.add(train);
 			}
 		}
 		return result;
+	}
+	
+	public void deleteByDepStation(String station) {
+    	List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getDeparture().toString().equals(station)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+    			ind[j] -= 1;
+    		}
+    	}
+	}
+	
+	public void deleteByArrStation(String station ) {
+		List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getArriving().toString().equals(station)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+    			ind[j] -= 1;
+    		}
+    	}
+	}
+	
+	public void deleteByDepTime(LocalTime top, LocalTime bottom) {
+		List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getDepartureDate().toLocalTime().isAfter(bottom) 
+    				&& model.getTrains().get(i).getDepartureDate().toLocalTime().isBefore(top)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+    			ind[j] -= 1;
+    		}
+    	}
+	}
+	
+	public void deleteByArrTime(LocalTime top, LocalTime bottom) {
+		List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getArrivingDate().toLocalTime().isAfter(bottom) 
+    				&& model.getTrains().get(i).getArrivingDate().toLocalTime().isBefore(top)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+    			ind[j] -= 1;
+    		}
+    	}
+	}
+	
+	public void deleteByNumber(String number) {
+		List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getNumber().equals(number)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+    			ind[j] -= 1;
+    		}
+    	}
+	}
+	
+	public void deleteByDepDate(LocalDate date) {
+		List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getDepartureDate().toLocalDate().isEqual(date)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+    			ind[j] -= 1;
+    		}
+    	}
+	}
+	
+	public void deleteByTravelTime(TravelTime time) {
+		List<Integer> indexes = new ArrayList<>();
+    	for (int i = 0; i < model.getTrains().size(); i++) {
+    		if(model.getTrains().get(i).getTravelTime().equals(time)) {
+    			indexes.add(i);
+    		}
+    	}
+    	int[] ind = new int[indexes.size()];
+    	for (int i = 0; i < indexes.size(); i++) {
+    		ind[i] = indexes.get(i);
+    	}
+    	for (int i = 0; i < indexes.size(); i++) {
+    		model.getTrains().remove(ind[i]);
+    		for (int j = i+1; j < indexes.size(); j++) {
+        		ind[j] -= 1;
+        	}
+    	}
 	}
 }

@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Train;
-import model.TravelTime;
 import view.ComponentCreator;
 import view.Table;
 
@@ -58,7 +57,7 @@ public class SearchByTravelTime {
 		Button addTrain = creator.getButton("Search");
 		addTrain.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
-			trains = controller.searchByTravelTime(parser.convertToTravelTime(travelTimeText.getText()).toString());
+			trains = controller.searchByTravelTime(parser.convertToTravelTime(travelTimeText.getText()));
 			table.recreate();
 			table.addContent(trains);
 			table.update();

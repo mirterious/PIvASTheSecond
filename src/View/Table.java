@@ -2,9 +2,16 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Train;
@@ -16,8 +23,26 @@ public class Table {
 	private List<Train> trains;
 
 	private TableView<ShowTable> table;
+	
+	private ComponentCreator creator;
+	
+	private Label totalPagesLabel;
+	
+	private Label totalRecordsLabel;
+	
+	private Label recordsPerPageLabel;
+	
+	private Label currentPageLabel;
+	
+	private int defaultPageRecords = 10;
 
-	private Pagination paginationBar;
+	private int totalRecords;
+
+	private int currentPage;
+
+	private int totalPages;
+
+	private int recordsPerPage;
 
 	public Table() {
 		this(new ArrayList<>());
@@ -27,17 +52,128 @@ public class Table {
 		this.trains = trains;
 		mainPane = new VBox();
 		table = new TableView<>();
-		paginationBar = new Pagination(this);
+		creator = new ComponentCreator();
+		totalRecords = trains.size();
+		recordsPerPage = defaultPageRecords;
+		currentPage = 1;
 		correctTable();
 		createColumns();
+		addComponents();
+		update();
 	}
 
+	public List<Train> getTrains() {
+		return trains;
+	}
+
+	public Pane getPane() {
+		return mainPane;
+	}
+
+	public void recreate() {
+		trains.clear();
+	}
+
+	public void setContent(List<ShowTable> records) {
+		table.getItems().clear();
+		table.getItems().addAll(records);
+	}
+	
+	public void addContent(List<Train> trains) {
+		this.trains.addAll(trains);
+		update();
+	}
+	
+	public void setTrains(List<Train> trains) {
+		this.trains = trains;
+	}
+	
+	public void setPage(int page) {
+		int from = page * recordsPerPage;
+		int to = from + recordsPerPage;
+		if (to > totalRecords) {
+			to = totalRecords;
+		}
+		if (from <= totalRecords) {
+			currentPage = page;
+			List<ShowTable> records = getAmountOfTrains(trains.subList(from, to));
+			setContent(records);
+			updateVariables();
+		}
+	}
+		
+	public void setFirstPage() {
+		setPage(0);
+	}
+	
+	public void setLastPage() {
+		int lastPage = totalPages - 1;
+		setPage(lastPage);
+	}
+	
+	public void nextPage() {
+		int page = currentPage + 1;
+		if (page < totalPages) {
+			setPage(page);
+		}
+	}
+	
+	public void previousPage() {
+		int page = currentPage - 1;
+		if (page >= 0) {
+			setPage(page);
+		}
+	}
+		
+	public void update() {
+		updateVariables();
+		setLastPage();
+	}
+
+	public void updateVariables() {
+		totalRecords = trains.size();
+		totalPages = (totalRecords - 1)/ recordsPerPage + 1;
+		updateLabels();
+		setRowHeight(totalRecords);
+	}
+	
 	private void correctTable() {
 		table.setMinWidth(800);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		mainPane.getChildren().addAll(table, paginationBar.getPane());
+		mainPane.getChildren().addAll(table/*, paginationBar.getPane()*/);
 	}
-
+	
+	private void setAmountOfRecordsPerPage(int number) {
+		if (number > 0) {
+			recordsPerPage = number;
+		} else {
+			showAlert("Неверное количество");
+		}
+	}
+	
+	public void setRowHeight(int totalRecords) {
+		final double heightOfCell = 30;
+		table.setFixedCellSize(heightOfCell);
+		double heightOfTable = (totalRecords + 1) * heightOfCell;
+		table.setMaxHeight(heightOfTable);
+	}
+	
+	private List<ShowTable> getAmountOfTrains(List<Train> trains) {
+		List<ShowTable> records = new ArrayList<>(trains.size());
+		for (Train train:trains) {
+			ShowTable record = new ShowTable(train);
+			records.add(record);	
+		}
+		return records;
+	}
+	
+	private void updateLabels() {
+		recordsPerPageLabel.setText("Records p/p "+recordsPerPage);
+		totalPagesLabel.setText("Total pages "+totalPages);
+		totalRecordsLabel.setText("Total records "+totalRecords);
+		currentPageLabel.setText("Current page "+(currentPage+1));
+	}
+	
 	@SuppressWarnings("unchecked")
 	private void createColumns() {
 		TableColumn<ShowTable, String> column1 = new TableColumn<>("Number");
@@ -61,46 +197,74 @@ public class Table {
 		table.getColumns().addAll(column1, column2, column3, column4, column5, column6);
 	}
 
-	public List<Train> getTrains() {
-		return trains;
-	}
+	private void addComponents() {
+		GridPane pane = new GridPane();
+		pane.setHgap(20);
+		
+		TextField text = creator.getTextField("Цифра");
+		text.setMaxWidth(50);
+		pane.add(text, 0, 0);
+		
+		recordsPerPageLabel = creator.getLabel(""+recordsPerPage);
+		pane.add(recordsPerPageLabel, 1, 0);
+		
+		totalRecordsLabel = creator.getLabel(""+totalRecords);
+		pane.add(totalRecordsLabel, 2, 0);
+		
+		currentPageLabel = creator.getLabel(""+currentPage);
+		pane.add(currentPageLabel, 3, 0);
+		
+		totalPagesLabel = creator.getLabel(""+totalPages);
+		pane.add(totalPagesLabel, 4, 0);
+		
+		Button setRecordsPerPage = creator.getButton("Кол-во записей");
+		setRecordsPerPage.setOnAction(e -> {
+			try {
+				int value = Integer.parseInt(text.getText());
+				if (value > 0) {
+					setAmountOfRecordsPerPage(value);
+					setPage(currentPage);
+				} else {
+					throw new IllegalArgumentException();
+				}
+			}
+			catch (RuntimeException ex) {
+				showAlert("wrong");
+			}
+		});
+		pane.add(setRecordsPerPage, 5, 0);
+		
+		Button onFirstPage = creator.getButton("Первая страница");
+		onFirstPage.setOnAction((e) -> {
+			setFirstPage();
+		});
+		pane.add(onFirstPage, 6, 0);
 
-	public Pane getPane() {
-		return mainPane;
-	}
+		Button onPrevPage = creator.getButton("Предыдущая страница");
+		onPrevPage.setOnAction((e) -> {
+			previousPage();
+		});
+		pane.add(onPrevPage, 7, 0);
 
-	public void clear() {
-		table.getItems().clear();
-	}
+		Button onNextPage = creator.getButton("Следующая страница");
+		onNextPage.setOnAction((e) -> {
+			nextPage();
+		});
+		pane.add(onNextPage, 8, 0);
 
-	public void recreate() {
-		trains.clear();
-	}
+		Button onLastPage = creator.getButton("Последняя страница");
+		onLastPage.setOnAction((e) -> {
+			setLastPage();
+		});
+		pane.add(onLastPage, 9, 0);
 
-	public void setContent(List<ShowTable> records) {
-		table.getItems().clear();
-		table.getItems().addAll(records);
+		mainPane.getChildren().add(pane);
 	}
 	
-	public void addContent(List<Train> trains) {
-		this.trains.addAll(trains);
-		paginationBar.update();
-		paginationBar.setLastPage();
-	}
-	
-	public void setTrains(List<Train> trains) {
-		this.trains = trains;
-	}
-	
-	public void update() {
-		paginationBar.update();
-		paginationBar.setLastPage();
-	}
-
-	public void setRowHeight(int totalRecords) {
-		final double heightOfCell = 30;
-		table.setFixedCellSize(heightOfCell);
-		double heightOfTable = (totalRecords + 1) * heightOfCell;
-		table.setMaxHeight(heightOfTable);
+	private void showAlert(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("ERROR");
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 }
