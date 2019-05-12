@@ -46,13 +46,13 @@ public class SearchByNumberOrDepDate {
 		pane.add(numberLabel, 0, 0);
 		
 		Label depDateLabel = creator.getLabel("Dep Date");
-		pane.add(depDateLabel, 2, 0);
+		pane.add(depDateLabel, 0, 1);
 		
 		TextField numberText = creator.getTextField();
 		pane.add(numberText, 1, 0);
 		
 		DatePicker depDateText = creator.getDatePicker();
-		pane.add(depDateText, 3, 0);
+		pane.add(depDateText, 1, 1);
 		
 		Button search = creator.getButton("Search");
 		search.setOnAction(e -> {
@@ -63,7 +63,7 @@ public class SearchByNumberOrDepDate {
 			table.addContent(trains);
 			table.update();
 		});
-		pane.add(search, 4, 0);
+		pane.add(search, 0, 3);
 		pane.setHgap(10);
 		pane.setVgap(10);
 		mainPane.getChildren().addAll(pane, table.getPane());	

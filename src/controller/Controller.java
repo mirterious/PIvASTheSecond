@@ -15,15 +15,11 @@ public class Controller {
 	public Controller(Schedule model) {
 		this.model = model;
 	}
-
-	public void addAmountOfTrains(List<Train> trains) {
-		model.getTrains().addAll(trains);
+	
+	public List<Train> getTrains() {
+		return model.getTrains();
 	}
 	
-	public void addTrain(Train train) {
-		model.getTrains().add(train);
-	}
-
 	public void refresh() {
 		model.getTrains().clear();
 	}
@@ -32,8 +28,12 @@ public class Controller {
 		return model.copy();
 	}
 
-	public List<Train> getTrains() {
-		return model.getTrains();
+	public void addAmountOfTrains(List<Train> trains) {
+		model.getTrains().addAll(trains);
+	}
+	
+	public void addTrain(Train train) {
+		model.getTrains().add(train);
 	}
 	
 	public void saveFile(File file) {

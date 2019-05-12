@@ -44,10 +44,6 @@ public class Table {
 
 	private int recordsPerPage;
 
-	public Table() {
-		this(new ArrayList<>());
-	}
-
 	public Table(List<Train> trains) {
 		this.trains = trains;
 		mainPane = new VBox();

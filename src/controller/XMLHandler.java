@@ -30,8 +30,6 @@ public class XMLHandler extends DefaultHandler {
 	public XMLHandler() {
 		trains = new LinkedList<>();
 		parser = new DateAndTimeParser();
-		departure = new Station();
-		arriving = new Station();
 	}
 
 	public List<Train> getTrains() {

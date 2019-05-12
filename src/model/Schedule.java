@@ -11,10 +11,6 @@ public class Schedule {
 		trains = new ArrayList<>();
 	}
 	
-	public Schedule(List<Train> trains) {
-		this.trains = trains;
-	}
-	
 	public void setTrains(List<Train> trains) {
 		this.trains = trains;
 	}

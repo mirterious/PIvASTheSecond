@@ -40,15 +40,15 @@ public class XMLFileWriter {
 		for (Train train : trains) {
 			Element xmlTrain = xmlDocument.createElement("train");
 
-			Element xmlNumber = converse(train.getNumber(), xmlDocument);
+			Element xmlNumber = convert(train.getNumber(), xmlDocument);
 			xmlTrain.appendChild(xmlNumber);
-			Element xmlDepStation = converse(train.getDeparture(), xmlDocument, "departure");
+			Element xmlDepStation = convert(train.getDeparture(), xmlDocument, "departure");
 			xmlTrain.appendChild(xmlDepStation);
-			Element xmlArrStation = converse(train.getArriving(), xmlDocument, "arriving");
+			Element xmlArrStation = convert(train.getArriving(), xmlDocument, "arriving");
 			xmlTrain.appendChild(xmlArrStation);
-			Element xmlDepDate = converse(train.getDepartureDate(), xmlDocument, "departureDate");
+			Element xmlDepDate = convert(train.getDepartureDate(), xmlDocument, "departureDate");
 			xmlTrain.appendChild(xmlDepDate);
-			Element xmlArrDate = converse(train.getArrivingDate(), xmlDocument, "arrivingDate");
+			Element xmlArrDate = convert(train.getArrivingDate(), xmlDocument, "arrivingDate");
 			xmlTrain.appendChild(xmlArrDate);
 
 			xmlTrains.appendChild(xmlTrain);
@@ -57,19 +57,19 @@ public class XMLFileWriter {
 		writeInFile(xmlDocument, file);
 	}
 
-	private Element converse(String number, Document document) {
+	private Element convert(String number, Document document) {
 		Element xmlNumber = document.createElement("number");
 		xmlNumber.setTextContent(number);
 		return xmlNumber;
 	}
 
-	private Element converse(Station station, Document document, String element) {
+	private Element convert(Station station, Document document, String element) {
 		Element xmlStation = document.createElement(element);
 		xmlStation.setTextContent(station.toString());
 		return xmlStation;
 	}
 
-	private Element converse(LocalDateTime time, Document document, String element) {
+	private Element convert(LocalDateTime time, Document document, String element) {
 		Element xmlTime = document.createElement(element);
 		xmlTime.setTextContent(time.toString());
 		return xmlTime;
