@@ -53,13 +53,13 @@ public class DeleteByNumberOrDepDate {
 		DatePicker depDateText = creator.getDatePicker();
 		pane.add(depDateText, 1, 1);
 		
-		Button addTrain = creator.getButton("Delete");
-		addTrain.setOnAction(e -> {
+		Button delete = creator.getButton("Delete");
+		delete.setOnAction(e -> {
 			controller.deleteByNumber(numberText.getText());
 			controller.deleteByDepDate(depDateText.getValue());
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
+		pane.add(delete, 0, 4);
 
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}

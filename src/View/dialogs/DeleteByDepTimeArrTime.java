@@ -50,31 +50,33 @@ public class DeleteByDepTimeArrTime {
 		Label arrStationLabel = creator.getLabel("Top border");
 		pane.add(arrStationLabel, 2, 1);
 		
-		TextField departureTopText = creator.getTextField("dep");
-		pane.add(departureTopText, 0, 1);
-		
-		TextField depatureBottomText = creator.getTextField("dep");
+		TextField depatureBottomText = creator.getTextField();
 		pane.add(depatureBottomText, 0, 0);
+		
+		TextField departureTopText = creator.getTextField();
+		pane.add(departureTopText, 0, 1);
 		
 		Label delTimeLabel = creator.getLabel("Dep time");
 		pane.add(delTimeLabel, 0, 2);
 		
-		TextField arrivingTopText = creator.getTextField();
-		pane.add(arrivingTopText, 1, 1);
-		
 		TextField arrivingBottomText = creator.getTextField();
-		pane.add(arrivingBottomText, 1, 0);
+		pane.add(arrivingBottomText, 1, 1);
+		
+		TextField arrivingTopText = creator.getTextField();
+		pane.add(arrivingTopText, 1, 0);
 		
 		Label arrTimeLabel = creator.getLabel("Arr time");
 		pane.add(arrTimeLabel, 1, 2);
 		
-		Button addTrain = creator.getButton("Delete");
-		addTrain.setOnAction(e -> {
-			controller.deleteByDepTime(parser.convertToTime(departureTopText.getText()), parser.convertToTime(depatureBottomText.getText()));
-			controller.deleteByArrTime(parser.convertToTime(arrivingTopText.getText()), parser.convertToTime(arrivingBottomText.getText()));
+		Button delete = creator.getButton("Delete");
+		delete.setOnAction(e -> {
+			controller.deleteByDepTime(parser.convertToTime(departureTopText.getText()), 
+					parser.convertToTime(depatureBottomText.getText()));
+			controller.deleteByArrTime(parser.convertToTime(arrivingTopText.getText()), 
+					parser.convertToTime(arrivingBottomText.getText()));
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
+		pane.add(delete, 0, 4);
 
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}

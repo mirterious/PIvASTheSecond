@@ -41,32 +41,57 @@ public class DeleteByTravelTime {
 	private void buildDialog() {
 		
 		GridPane pane = new GridPane();
-		pane.setHgap(10);
-		pane.setVgap(10);
 		
-		Label travelTimeLabel = creator.getLabel("Travel Time");
-		pane.add(travelTimeLabel, 0, 0);
 		
-		Label travelTimeExampleLabel = creator.getLabel("Y M D H M");
-		pane.add(travelTimeExampleLabel, 0, 1);
+		TextField yearsText = creator.getTextField();
+		pane.add(yearsText, 0, 0);
 		
-		TextField travelTimeText = creator.getTextField();
-		pane.add(travelTimeText, 1, 1);
+		Label yearsExampleLabel = creator.getLabel("Years");
+		pane.add(yearsExampleLabel, 1, 0);
 		
-		Button addTrain = creator.getButton("Delete");
-		addTrain.setOnAction(e -> {
-			controller.deleteByTravelTime(parser.convertToTravelTime(travelTimeText.getText()));
+		TextField monthsText = creator.getTextField();
+		pane.add(monthsText, 2, 0);
+		
+		Label monthsExampleLabel = creator.getLabel("Month");
+		pane.add(monthsExampleLabel, 3, 0);
+		
+		TextField daysText = creator.getTextField();
+		pane.add(daysText, 4, 0);
+		
+		Label daysExampleLabel = creator.getLabel("Days");
+		pane.add(daysExampleLabel, 5, 0);
+		
+		TextField hoursText = creator.getTextField();
+		pane.add(hoursText, 6, 0);
+		
+		Label hoursExampleLabel = creator.getLabel("Hours");
+		pane.add(hoursExampleLabel, 7, 0);
+		
+		TextField minutesText = creator.getTextField();
+		pane.add(minutesText, 8, 0);
+		
+		Label minutesExampleLabel = creator.getLabel("Minutes");
+		pane.add(minutesExampleLabel, 9, 0);
+		
+		Button delete = creator.getButton("Delete");
+		delete.setOnAction(e -> {
+			String travelTime = yearsText.getText() + " "
+					+ monthsText.getText() + " " 
+						+ daysText.getText() + " " + 
+							hoursText.getText() + " " + minutesText.getText();
+			controller.deleteByTravelTime(parser.convertToTravelTime(travelTime));
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
-		
+		pane.add(delete, 10, 0);
+		pane.setHgap(8);
+		pane.setVgap(10);
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}
 	
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Deleting");
+		stage.setTitle("Deleting by travel time");
 		stage.setHeight(500);
 		stage.setWidth(1200);
 		stage.show();

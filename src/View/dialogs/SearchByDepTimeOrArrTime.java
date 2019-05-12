@@ -51,34 +51,40 @@ public class SearchByDepTimeOrArrTime {
 		Label arrStationLabel = creator.getLabel("Top border");
 		pane.add(arrStationLabel, 2, 1);
 		
-		TextField departureTopText = creator.getTextField("dep");
-		pane.add(departureTopText, 0, 1);
-		
-		TextField depatureBottomText = creator.getTextField("dep");
+		TextField depatureBottomText = creator.getTextField();
 		pane.add(depatureBottomText, 0, 0);
+		
+		TextField departureTopText = creator.getTextField();
+		pane.add(departureTopText, 0, 1);
 		
 		Label delTimeLabel = creator.getLabel("Dep time");
 		pane.add(delTimeLabel, 0, 2);
 		
-		TextField arrivingTopText = creator.getTextField();
-		pane.add(arrivingTopText, 1, 1);
-		
 		TextField arrivingBottomText = creator.getTextField();
-		pane.add(arrivingBottomText, 1, 0);
+		pane.add(arrivingBottomText, 1, 1);
+		
+		TextField arrivingTopText = creator.getTextField();
+		pane.add(arrivingTopText, 1, 0);
 		
 		Label arrTimeLabel = creator.getLabel("Arr time");
 		pane.add(arrTimeLabel, 1, 2);
 		
-		Button addTrain = creator.getButton("Search");
-		addTrain.setOnAction(e -> {
+		Button search = creator.getButton("Search");
+		search.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
-			trains.addAll(controller.searchByDepTime(parser.convertToTime(departureTopText.getText()), parser.convertToTime(depatureBottomText.getText())));
-			trains.addAll(controller.searchByArrTime(parser.convertToTime(arrivingTopText.getText()), parser.convertToTime(arrivingBottomText.getText())));
+			if(!departureTopText.getText().isEmpty()) {
+				trains.addAll(controller.searchByDepTime(parser.convertToTime(departureTopText.getText()),
+						parser.convertToTime(depatureBottomText.getText())));
+			}
+			if(!arrivingTopText.getText().isEmpty()) {
+				trains.addAll(controller.searchByArrTime(parser.convertToTime(arrivingTopText.getText()),
+						parser.convertToTime(arrivingBottomText.getText())));
+			}
 			table.recreate();
 			table.addContent(trains);
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
+		pane.add(search, 0, 4);
 		pane.setHgap(10);
 		pane.setVgap(10);
 		mainPane.getChildren().addAll(pane, table.getPane());	

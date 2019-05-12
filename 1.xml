@@ -85,6 +85,13 @@
 		<arrivingDate>1269-05-16T08:54</arrivingDate>
 	</train>
 	<train>
+		<number>8602</number>
+		<departure>Ивенец</departure>
+		<arriving>Гродно</arriving>
+		<departureDate>2019-05-02T03:32</departureDate>
+		<arrivingDate>2019-05-28T16:34</arrivingDate>
+	</train>
+	<train>
 		<number>7624</number>
 		<departure>Вайтран</departure>
 		<arriving>Солитьюд</arriving>
@@ -127,6 +134,13 @@
 		<arrivingDate>2019-04-26T16:06</arrivingDate>
 	</train>
 	<train>
+		<number>1234</number>
+		<departure>Столин</departure>
+		<arriving>Мозырь</arriving>
+		<departureDate>2019-05-02T03:32</departureDate>
+		<arrivingDate>2019-05-28T16:34</arrivingDate>
+	</train>
+	<train>
 		<number>3371</number>
 		<departure>Барановичи</departure>
 		<arriving>Минск</arriving>
@@ -162,6 +176,13 @@
 		<arrivingDate>2019-04-26T22:06</arrivingDate>
 	</train>
 	<train>
+		<number>6271</number>
+		<departure>Петриков</departure>
+		<arriving>Столбцы</arriving>
+		<departureDate>2019-05-02T03:32</departureDate>
+		<arrivingDate>2019-05-28T16:34</arrivingDate>
+	</train>
+	<train>
 		<number>1627</number>
 		<departure>Витебск</departure>
 		<arriving>Могилев</arriving>
@@ -190,6 +211,13 @@
 		<arrivingDate>2019-04-26T23:30</arrivingDate>
 	</train>
 	<train>
+		<number>1234</number>
+		<departure>Столин</departure>
+		<arriving>Мозырь</arriving>
+		<departureDate>2019-05-02T03:32</departureDate>
+		<arrivingDate>2019-05-28T16:34</arrivingDate>
+	</train>
+	<train>
 		<number>145D</number>
 		<departure>Санкт-Петербург</departure>
 		<arriving>Москва</arriving>
@@ -209,6 +237,13 @@
 		<arriving>Магадан</arriving>
 		<departureDate>2017-05-24T13:32</departureDate>
 		<arrivingDate>2019-09-27T16:34</arrivingDate>
+	</train>
+	<train>
+		<number>9806</number>
+		<departure>Ивенец</departure>
+		<arriving>Гродно</arriving>
+		<departureDate>2019-05-02T03:32</departureDate>
+		<arrivingDate>2019-05-28T16:34</arrivingDate>
 	</train>
 	<train>
 		<number>1626</number>
@@ -249,8 +284,8 @@
 		<number>1245</number>
 		<departure>Москва</departure>
 		<arriving>Калининград</arriving>
-		<departureDate>2018-08-14T04:32</departureDate>
-		<arrivingDate>2018-06-23T13:38</arrivingDate>
+		<departureDate>2018-06-14T04:32</departureDate>
+		<arrivingDate>2018-08-23T13:38</arrivingDate>
 	</train>
 	<train>
 		<number>AYQE</number>
@@ -259,5 +294,61 @@
 		<departureDate>2018-08-14T03:32</departureDate>
 		<arrivingDate>2018-08-28T16:34</arrivingDate>
 	</train>
+	<train>
+		<number>74JK</number>
+		<departure>Moscow</departure>
+		<arriving>London</arriving>
+		<departureDate>2019-05-02T03:32</departureDate>
+		<arrivingDate>2019-05-28T16:34</arrivingDate>
+	</train>
+	<train>
+		<number>8602</number>
+		<departure>Орша</departure>
+		<arriving>Санкт-Перербург</arriving>
+		<departureDate>2019-09-02T11:32</departureDate>
+		<arrivingDate>2019-09-04T17:34</arrivingDate>
+	</train>
+	<train>
+		<number>1771</number>
+		<departure>Новый Орлеан</departure>
+		<arriving>Самара</arriving>
+		<departureDate>2019-09-02T16:32</departureDate>
+		<arrivingDate>2020-11-07T17:34</arrivingDate>
+	</train>
+	<train>
+		<number>РП16</number>
+		<departure>Торунь</departure>
+		<arriving>Гнезна</arriving>
+		<departureDate>2019-09-02T12:32</departureDate>
+		<arrivingDate>2019-11-07T09:34</arrivingDate>
+	</train>
+	<train>
+		<number>ОР18</number>
+		<departure>Амстердам</departure>
+		<arriving>Шанхай</arriving>
+		<departureDate>2019-09-02T04:32</departureDate>
+		<arrivingDate>2019-12-22T09:25</arrivingDate>
+	</train>
+	<train>
+		<number>ОР18</number>
+		<departure>Токио</departure>
+		<arriving>Гонконг</arriving>
+		<departureDate>2019-09-02T04:32</departureDate>
+		<arrivingDate>2019-12-22T09:25</arrivingDate>
+	</train>
+	<train>
+		<number>9923</number>
+		<departure>Шепичи</departure>
+		<arriving>Магнитная</arriving>
+		<departureDate>2019-09-02T04:32</departureDate>
+		<arrivingDate>2019-09-02T04:34</arrivingDate>
+	</train>
+	<train>
+		<number>9923</number>
+		<departure>Ангарская 58</departure>
+		<arriving>БГУИР</arriving>
+		<departureDate>2019-05-19T11:40</departureDate>
+		<arrivingDate>2019-05-19T13:15</arrivingDate>
+	</train>
 </trains>
-<!--(строки-4)/7   37-->
+<!--(строки-4)/7   50-->

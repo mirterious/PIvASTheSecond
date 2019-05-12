@@ -45,16 +45,16 @@ public class SearchByDepStationOrArrStation {
 		pane.add(depStationLabel, 0, 0);
 		
 		Label arrStationLabel = creator.getLabel("Arr Station");
-		pane.add(arrStationLabel, 0, 1);
+		pane.add(arrStationLabel, 2, 0);
 		
 		TextField departureStationText = creator.getTextField();
 		pane.add(departureStationText, 1, 0);
 		
 		TextField arrivingStationText = creator.getTextField();
-		pane.add(arrivingStationText, 1, 1);
+		pane.add(arrivingStationText, 3, 0);
 		
-		Button addTrain = creator.getButton("Search");
-		addTrain.setOnAction(e -> {
+		Button search = creator.getButton("Search");
+		search.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
 			trains.addAll(controller.searchByDepStation(departureStationText.getText()));
 			trains.addAll(controller.searchByArrStation(arrivingStationText.getText()));
@@ -62,7 +62,7 @@ public class SearchByDepStationOrArrStation {
 			table.addContent(trains);
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
+		pane.add(search, 4, 0);
 		pane.setHgap(10);
 		pane.setVgap(10);
 		mainPane.getChildren().addAll(pane, table.getPane());	

@@ -19,6 +19,7 @@ public class ComponentCreator {
 		Button button = new Button(name);
 		button.setMaxSize(100, 30);
 		button.setMinSize(100, 30);
+		button.setStyle("");
 		return button;
 	}
 	
@@ -39,16 +40,10 @@ public class ComponentCreator {
 	
 	public Label getLabel(String name) {
 		Label label = new Label(name);
+		label.setStyle("text-align: center; -fx-font-size:12px;");
 		label.setMaxSize(100, 40);
 		label.setMinSize(100, 40);
 		return label;
-	}
-	
-	public TextField getTextField(String name) {
-		TextField textField = new TextField(name);
-		textField.setMaxWidth(100);
-		textField.setMinWidth(100);
-		return textField;
 	}
 	
 	public TextField getTextField() {
@@ -60,6 +55,7 @@ public class ComponentCreator {
 
 	public DatePicker getDatePicker() {
 		DatePicker datePicker = new DatePicker();
+		datePicker.setMaxWidth(100);
 		datePicker.setValue(LocalDate.now());
 		datePicker.setShowWeekNumbers(true);
 		return datePicker;

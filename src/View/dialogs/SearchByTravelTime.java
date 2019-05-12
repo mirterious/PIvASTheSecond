@@ -45,25 +45,50 @@ public class SearchByTravelTime {
 		
 		GridPane pane = new GridPane();
 		
-		Label travelTimeLabel = creator.getLabel("Travel Time");
-		pane.add(travelTimeLabel, 0, 0);
+		TextField yearsText = creator.getTextField();
+		pane.add(yearsText, 0, 0);
 		
-		Label travelTimeExampleLabel = creator.getLabel("Y M D H M");
-		pane.add(travelTimeExampleLabel, 0, 1);
+		Label yearsExampleLabel = creator.getLabel("Years");
+		pane.add(yearsExampleLabel, 1, 0);
 		
-		TextField travelTimeText = creator.getTextField();
-		pane.add(travelTimeText, 1, 1);
+		TextField monthsText = creator.getTextField();
+		pane.add(monthsText, 2, 0);
 		
-		Button addTrain = creator.getButton("Search");
-		addTrain.setOnAction(e -> {
+		Label monthsExampleLabel = creator.getLabel("Month");
+		pane.add(monthsExampleLabel, 3, 0);
+		
+		TextField daysText = creator.getTextField();
+		pane.add(daysText, 4, 0);
+		
+		Label daysExampleLabel = creator.getLabel("Days");
+		pane.add(daysExampleLabel, 5, 0);
+		
+		TextField hoursText = creator.getTextField();
+		pane.add(hoursText, 6, 0);
+		
+		Label hoursExampleLabel = creator.getLabel("Hours");
+		pane.add(hoursExampleLabel, 7, 0);
+		
+		TextField minutesText = creator.getTextField();
+		pane.add(minutesText, 8, 0);
+		
+		Label minutesExampleLabel = creator.getLabel("Minutes");
+		pane.add(minutesExampleLabel, 9, 0);
+		
+		Button search = creator.getButton("Search");
+		search.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
-			trains = controller.searchByTravelTime(parser.convertToTravelTime(travelTimeText.getText()));
+			String travelTime = yearsText.getText() + " "
+					+ monthsText.getText() + " " 
+						+ daysText.getText() + " " + 
+							hoursText.getText() + " " + minutesText.getText();
+			trains = controller.searchByTravelTime(parser.convertToTravelTime(travelTime));
 			table.recreate();
 			table.addContent(trains);
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
-		pane.setHgap(10);
+		pane.add(search, 10, 0);
+		pane.setHgap(8);
 		pane.setVgap(10);
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}
@@ -71,7 +96,7 @@ public class SearchByTravelTime {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Searching");
+		stage.setTitle("Searching by travel time");
 		stage.setHeight(500);
 		stage.setWidth(1200);
 		stage.show();

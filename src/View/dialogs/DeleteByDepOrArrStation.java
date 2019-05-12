@@ -52,13 +52,13 @@ public class DeleteByDepOrArrStation {
 		TextField arrivingStationText = creator.getTextField();
 		pane.add(arrivingStationText, 1, 1);
 		
-		Button addTrain = creator.getButton("Delete");
-		addTrain.setOnAction(e -> {
+		Button delete = creator.getButton("Delete");
+		delete.setOnAction(e -> {
 			controller.deleteByDepStation(departureStationText.getText());
 			controller.deleteByArrStation(arrivingStationText.getText());
 			table.update();
 		});
-		pane.add(addTrain, 0, 4);
+		pane.add(delete, 0, 4);
 
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}

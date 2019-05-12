@@ -201,12 +201,12 @@ public class Table {
 		GridPane pane = new GridPane();
 		pane.setHgap(20);
 		
-		TextField text = creator.getTextField("Цифра");
+		TextField text = creator.getTextField();
 		text.setMaxWidth(50);
 		pane.add(text, 0, 0);
 		
 		recordsPerPageLabel = creator.getLabel(""+recordsPerPage);
-		pane.add(recordsPerPageLabel, 1, 0);
+		pane.add(recordsPerPageLabel, 5, 0);
 		
 		totalRecordsLabel = creator.getLabel(""+totalRecords);
 		pane.add(totalRecordsLabel, 2, 0);
@@ -217,7 +217,7 @@ public class Table {
 		totalPagesLabel = creator.getLabel(""+totalPages);
 		pane.add(totalPagesLabel, 4, 0);
 		
-		Button setRecordsPerPage = creator.getButton("Кол-во записей");
+		Button setRecordsPerPage = creator.getButton("Записи");
 		setRecordsPerPage.setOnAction(e -> {
 			try {
 				int value = Integer.parseInt(text.getText());
@@ -232,27 +232,27 @@ public class Table {
 				showAlert("wrong");
 			}
 		});
-		pane.add(setRecordsPerPage, 5, 0);
+		pane.add(setRecordsPerPage, 1, 0);
 		
-		Button onFirstPage = creator.getButton("Первая страница");
+		Button onFirstPage = creator.getButton("1-ая стр.");
 		onFirstPage.setOnAction((e) -> {
 			setFirstPage();
 		});
 		pane.add(onFirstPage, 6, 0);
 
-		Button onPrevPage = creator.getButton("Предыдущая страница");
+		Button onPrevPage = creator.getButton("Пред. стр.");
 		onPrevPage.setOnAction((e) -> {
 			previousPage();
 		});
 		pane.add(onPrevPage, 7, 0);
 
-		Button onNextPage = creator.getButton("Следующая страница");
+		Button onNextPage = creator.getButton("След. стр.");
 		onNextPage.setOnAction((e) -> {
 			nextPage();
 		});
 		pane.add(onNextPage, 8, 0);
 
-		Button onLastPage = creator.getButton("Последняя страница");
+		Button onLastPage = creator.getButton("Посл. стр.");
 		onLastPage.setOnAction((e) -> {
 			setLastPage();
 		});

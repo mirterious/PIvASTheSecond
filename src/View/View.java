@@ -38,6 +38,7 @@ public class View {
 		pane.getChildren().addAll(table.getPane());
 		mainPane.getChildren().addAll(menu.getPane(), pane);
 		stage.setScene(new Scene(mainPane));
+		stage.setTitle("PPvIS-2 Train Schedule example");
 		stage.setMinHeight(500);
 		stage.setMinWidth(800);
 	}
