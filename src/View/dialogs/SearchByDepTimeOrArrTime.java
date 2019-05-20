@@ -105,14 +105,21 @@ public class SearchByDepTimeOrArrTime {
 			if (!arrivingTopTextHours.getText().isEmpty() && !arrivingTopTextHours.getText().isEmpty()) {
 				arrTimeTop = arrivingTopTextHours.getText() + ":" + arrivingTopTextMinutes.getText();
 			}
-			List<Train> trains = new ArrayList<>();
+			List<Train> deptrains = new ArrayList<>();
+			List<Train> arrtrains = new ArrayList<>();
 			if(!depTimeBot.isEmpty() && !depTimeTop.isEmpty()) {
-				trains.addAll(controller.searchByDepTime(parser.convertToTime(depTimeTop),
+				deptrains.addAll(controller.searchByDepTime(parser.convertToTime(depTimeTop),
 						parser.convertToTime(depTimeBot)));
 			}
 			if(!arrTimeBot.isEmpty() && !arrTimeTop.isEmpty()) {
-				trains.addAll(controller.searchByArrTime(parser.convertToTime(arrTimeTop),
+				arrtrains.addAll(controller.searchByArrTime(parser.convertToTime(arrTimeTop),
 						parser.convertToTime(arrTimeBot)));
+			}
+			List<Train> trains = deptrains;
+			for (int i = 0; i < arrtrains.size(); i++) {
+				if (!deptrains.contains(arrtrains.get(i))) {
+					trains.add(arrtrains.get(i));
+				}
 			}
 			table.recreate();
 			table.addContent(trains);

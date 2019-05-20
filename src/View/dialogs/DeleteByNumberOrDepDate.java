@@ -2,16 +2,17 @@ package view.dialogs;
 
 import controller.Controller;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.ComponentCreator;
-import view.Table;
 
 public class DeleteByNumberOrDepDate {
 
@@ -23,12 +24,8 @@ public class DeleteByNumberOrDepDate {
 	
 	private Pane mainPane;
 	
-	private Table table;
-	
 	public DeleteByNumberOrDepDate(Controller controller) {
 		this.controller = controller;
-		table = new Table(controller.getTrains());
-		table.update();
 		stage = new Stage();
 		mainPane = new VBox();
 		creator = new ComponentCreator();
@@ -55,21 +52,30 @@ public class DeleteByNumberOrDepDate {
 		
 		Button delete = creator.getButton("Удалить");
 		delete.setOnAction(e -> {
+			int recordsBeforeDeleting = controller.getTrains().size();
 			controller.deleteByNumber(numberText.getText());
 			controller.deleteByDepDate(depDateText.getValue());
-			table.update();
+			int count = recordsBeforeDeleting - controller.getTrains().size();
+			showAlert("Удалено " + count + " Записей");
 		});
 		pane.add(delete, 0, 4);
 
-		mainPane.getChildren().addAll(pane, table.getPane());	
+		mainPane.getChildren().addAll(pane);	
 	}
 	
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
 		stage.setTitle("Удаление по номеру или дате отправления");
-		stage.setHeight(600);
-		stage.setWidth(1200);
+		stage.setHeight(200);
+		stage.setWidth(250);
 		stage.show();
+	}
+	
+	private void showAlert(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Успех");
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 }
