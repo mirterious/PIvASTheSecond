@@ -41,10 +41,10 @@ public class DeleteByNumberOrDepDate {
 		pane.setHgap(10);
 		pane.setVgap(10);
 		
-		Label numberLabel = creator.getLabel("Number");
+		Label numberLabel = creator.getLabel("Номер");
 		pane.add(numberLabel, 0, 0);
 		
-		Label depDateLabel = creator.getLabel("Dep Date");
+		Label depDateLabel = creator.getLabel("Дата отпр.");
 		pane.add(depDateLabel, 0, 1);
 		
 		TextField numberText = creator.getTextField();
@@ -53,7 +53,7 @@ public class DeleteByNumberOrDepDate {
 		DatePicker depDateText = creator.getDatePicker();
 		pane.add(depDateText, 1, 1);
 		
-		Button delete = creator.getButton("Delete");
+		Button delete = creator.getButton("Удалить");
 		delete.setOnAction(e -> {
 			controller.deleteByNumber(numberText.getText());
 			controller.deleteByDepDate(depDateText.getValue());
@@ -67,8 +67,8 @@ public class DeleteByNumberOrDepDate {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Deleting");
-		stage.setHeight(500);
+		stage.setTitle("Удаление по номеру или дате отправления");
+		stage.setHeight(600);
 		stage.setWidth(1200);
 		stage.show();
 	}

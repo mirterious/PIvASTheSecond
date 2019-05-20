@@ -18,6 +18,8 @@ public class View {
 	private Table table;
 	
 	private Filemenu menu;
+	
+	private SearchAndDeletePanel panel;
 
 	public View(Stage stage) {
 		this.stage = stage;
@@ -25,6 +27,7 @@ public class View {
 		mainPane = new VBox();
 		controller = new Controller(model);
 		table = new Table(model.getTrains());
+		panel = new SearchAndDeletePanel(controller, table);
 		menu = new Filemenu(controller, table, stage);
 		configure();
 	}
@@ -35,11 +38,11 @@ public class View {
 
 	private void configure() {
 		Pane pane = new VBox();
-		pane.getChildren().addAll(table.getPane());
+		pane.getChildren().addAll(table.getPane(), panel.getPane());
 		mainPane.getChildren().addAll(menu.getPane(), pane);
 		stage.setScene(new Scene(mainPane));
 		stage.setTitle("PPvIS-2 Train Schedule example");
-		stage.setMinHeight(500);
+		stage.setMinHeight(670);
 		stage.setMinWidth(800);
 	}
 }

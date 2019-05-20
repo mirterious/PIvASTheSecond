@@ -136,7 +136,7 @@ public class Table {
 	private void correctTable() {
 		table.setMinWidth(800);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		mainPane.getChildren().addAll(table/*, paginationBar.getPane()*/);
+		mainPane.getChildren().addAll(table);
 	}
 	
 	private void setAmountOfRecordsPerPage(int number) {
@@ -164,30 +164,30 @@ public class Table {
 	}
 	
 	private void updateLabels() {
-		recordsPerPageLabel.setText("Records p/p "+recordsPerPage);
-		totalPagesLabel.setText("Total pages "+totalPages);
-		totalRecordsLabel.setText("Total records "+totalRecords);
-		currentPageLabel.setText("Current page "+(currentPage+1));
+		recordsPerPageLabel.setText("Зап. на стр. "+recordsPerPage);
+		totalPagesLabel.setText("Всего стр. "+totalPages);
+		totalRecordsLabel.setText("Всего зап. "+totalRecords);
+		currentPageLabel.setText("Текущая стр. "+(currentPage+1));
 	}
 	
 	@SuppressWarnings("unchecked")
 	private void createColumns() {
-		TableColumn<ShowTable, String> column1 = new TableColumn<>("Number");
+		TableColumn<ShowTable, String> column1 = new TableColumn<>("Номер");
 		column1.setCellValueFactory(new PropertyValueFactory<>("number"));
 		
-		TableColumn<ShowTable, String> column2 = new TableColumn<>("Dep Station");
+		TableColumn<ShowTable, String> column2 = new TableColumn<>("Станция отправления");
 		column2.setCellValueFactory(new PropertyValueFactory<>("departure"));
 		
-		TableColumn<ShowTable, String> column3 = new TableColumn<>("Arr Station");
+		TableColumn<ShowTable, String> column3 = new TableColumn<>("Станция прибытия");
 		column3.setCellValueFactory(new PropertyValueFactory<>("arriving"));
 		
-		TableColumn<ShowTable, String> column4 = new TableColumn<>("Dep Date");
+		TableColumn<ShowTable, String> column4 = new TableColumn<>("Дата отправления");
 		column4.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
 
-		TableColumn<ShowTable, String> column5 = new TableColumn<>("Arr Date");
+		TableColumn<ShowTable, String> column5 = new TableColumn<>("Дата пребытия");
 		column5.setCellValueFactory(new PropertyValueFactory<>("arrivingDate"));
 		
-		TableColumn<ShowTable, String> column6 = new TableColumn<>("Travel time");
+		TableColumn<ShowTable, String> column6 = new TableColumn<>("Время в пути");
 		column6.setCellValueFactory(new PropertyValueFactory<>("travelTime"));
 		
 		table.getColumns().addAll(column1, column2, column3, column4, column5, column6);
@@ -195,7 +195,7 @@ public class Table {
 
 	private void addComponents() {
 		GridPane pane = new GridPane();
-		pane.setHgap(20);
+		pane.setHgap(31);
 		
 		TextField text = creator.getTextField();
 		text.setMaxWidth(50);
@@ -259,7 +259,7 @@ public class Table {
 	
 	private void showAlert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("ERROR");
+		alert.setTitle("Ошибка");
 		alert.setContentText(message);
 		alert.showAndWait();
 	}

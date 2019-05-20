@@ -7,10 +7,12 @@ import java.time.LocalTime;
 import controller.Controller;
 import controller.DateAndTimeParser;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -51,13 +53,13 @@ public class AddTrainDialog {
 		TextField numberText = creator.getTextField();
 		pane.add(numberText, 0, 0);
 		
-		Label numberLabel = creator.getLabel("Number");
+		Label numberLabel = creator.getLabel("Номер");
 		pane.add(numberLabel, 0, 1);
 		
-		Label depStationLabel = creator.getLabel("Dep Station");
+		Label depStationLabel = creator.getLabel("Ст. отпр.");
 		pane.add(depStationLabel, 1, 0);
 		
-		Label arrStationLabel = creator.getLabel("Arr Station");
+		Label arrStationLabel = creator.getLabel("Ст. приб.");
 		pane.add(arrStationLabel, 1, 1);
 		
 		TextField departureStationText = creator.getTextField();
@@ -66,10 +68,10 @@ public class AddTrainDialog {
 		TextField arrivingStationText = creator.getTextField();
 		pane.add(arrivingStationText, 2, 1);
 
-		Label depDateLabel = creator.getLabel("Dep Date");
+		Label depDateLabel = creator.getLabel("Дата отпр.");
 		pane.add(depDateLabel, 3, 0);
 		
-		Label arrDateLabel = creator.getLabel("Arr Date");
+		Label arrDateLabel = creator.getLabel("Дата приб.");
 		pane.add(arrDateLabel, 3, 1);
 		
 		DatePicker departureDateText = creator.getDatePicker();
@@ -78,17 +80,29 @@ public class AddTrainDialog {
 		DatePicker arrivingDateText = creator.getDatePicker();
 		pane.add(arrivingDateText, 4, 1);
 		
-		TextField departureTimeText = creator.getTextField();
-		pane.add(departureTimeText, 5, 0);
+		TextField departureTimeTextHours = creator.getTextField();
+		pane.add(departureTimeTextHours, 5, 0);
 		
-		TextField arrivingTimeText = creator.getTextField();
-		pane.add(arrivingTimeText, 5, 1);
+		Label departureTimeHoursLabel = creator.getLabel("Часы");
+		pane.add(departureTimeHoursLabel, 5, 2);
 		
-		Label departureTimeLabel = creator.getLabel("Departure Time");
-		pane.add(departureTimeLabel, 6, 0);
+		TextField departureTimeTextMinutes = creator.getTextField();
+		pane.add(departureTimeTextMinutes, 6, 0);
 		
-		Label arrivingTimeLabel = creator.getLabel("Arriving Time");
-		pane.add(arrivingTimeLabel, 6, 1);
+		Label departureTimeMinutesLabel = creator.getLabel("Минуты");
+		pane.add(departureTimeMinutesLabel, 6, 2);
+		
+		TextField arrivingTimeTextHours = creator.getTextField();
+		pane.add(arrivingTimeTextHours, 5, 1);
+		
+		TextField arrivingTimeTextMinutes = creator.getTextField();
+		pane.add(arrivingTimeTextMinutes, 6, 1);
+		
+		Label departureTimeLabel = creator.getLabel("Время отправления");
+		pane.add(departureTimeLabel, 8, 0);
+		
+		Label arrivingTimeLabel = creator.getLabel("Время прибытия");
+		pane.add(arrivingTimeLabel, 8, 1);
 		
 		Button addTrain = creator.getButton("Add");
 		addTrain.setOnAction(e -> {
@@ -97,15 +111,33 @@ public class AddTrainDialog {
 			Station arrivingStation = new Station(arrivingStationText.getText());
 			LocalDate departureDate = departureDateText.getValue();
 			LocalDate arrivingDate = arrivingDateText.getValue();
-			LocalTime departureTime = parser.convertToTime(departureTimeText.getText());
-			LocalTime arrivingTime = parser.convertToTime(arrivingTimeText.getText());
+			String depTime = new String();
+			String arrTime = new String();
+			if (!departureTimeTextHours.getText().isEmpty() && !departureTimeTextMinutes.getText().isEmpty()) {
+				depTime = departureTimeTextHours.getText() + ":" + departureTimeTextMinutes.getText();
+			}
+			if (!arrivingTimeTextHours.getText().isEmpty() && !arrivingTimeTextMinutes.getText().isEmpty()) {
+				arrTime = arrivingTimeTextHours.getText() + ":" + arrivingTimeTextMinutes.getText();
+			}
+			LocalTime departureTime = parser.convertToTime(depTime);
+			LocalTime arrivingTime = parser.convertToTime(arrTime);
 			LocalDateTime departureSchedule = LocalDateTime.of(departureDate, departureTime);
 			LocalDateTime arrivingSchedule = LocalDateTime.of(arrivingDate, arrivingTime);
 			Train train = new Train(number, departureStation, arrivingStation, departureSchedule, arrivingSchedule);
-			controller.addTrain(train);
-			table.update();
+			if (departureSchedule.isAfter(arrivingSchedule)) {
+				showAlert("Неверно введена дата");
+				departureTimeTextHours.setText("");
+				departureTimeTextMinutes.setText("");
+				arrivingTimeTextHours.setText("");
+				arrivingTimeTextMinutes.setText("");
+				departureDateText.setValue(LocalDate.now());	
+				arrivingDateText.setValue(LocalDate.now());
+			} else {
+				controller.addTrain(train);
+				table.update();
+			}
 		});
-		pane.add(addTrain, 3, 4);
+		pane.add(addTrain, 4, 4);
 		pane.setHgap(10);
 		pane.setVgap(10);
 		mainPane.getChildren().addAll(pane);	
@@ -114,9 +146,16 @@ public class AddTrainDialog {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Add new train");
+		stage.setTitle("Добавление поезда");
 		stage.setHeight(230);
-		stage.setWidth(800);
+		stage.setWidth(950);
 		stage.show();
+	}
+	
+	private void showAlert(String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Ошибка");
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 }

@@ -41,10 +41,10 @@ public class SearchByDepStationOrArrStation {
 		
 		GridPane pane = new GridPane();
 		
-		Label depStationLabel = creator.getLabel("Dep Station");
+		Label depStationLabel = creator.getLabel("Ст. отправления");
 		pane.add(depStationLabel, 0, 0);
 		
-		Label arrStationLabel = creator.getLabel("Arr Station");
+		Label arrStationLabel = creator.getLabel("Ст. прибытия");
 		pane.add(arrStationLabel, 2, 0);
 		
 		TextField departureStationText = creator.getTextField();
@@ -53,7 +53,7 @@ public class SearchByDepStationOrArrStation {
 		TextField arrivingStationText = creator.getTextField();
 		pane.add(arrivingStationText, 3, 0);
 		
-		Button search = creator.getButton("Search");
+		Button search = creator.getButton("Найти");
 		search.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
 			trains.addAll(controller.searchByDepStation(departureStationText.getText()));
@@ -71,8 +71,8 @@ public class SearchByDepStationOrArrStation {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Searching");
-		stage.setHeight(500);
+		stage.setTitle("Поиск по станции прибытия или отправления");
+		stage.setHeight(600);
 		stage.setWidth(1200);
 		stage.show();
 	}

@@ -50,16 +50,16 @@ public class Filemenu {
 	}
 
 	private void addFileMenu() {
-		fileBar.setMinWidth(1200);
+		fileBar.setMinWidth(1300);
 		fileBar.setMaxWidth(1600);
 		
-		MenuItem newFile = new MenuItem("New file");
+		MenuItem newFile = new MenuItem("Новый файл");
 		newFile.setOnAction((e) -> {
 			controller.refresh();
 			table.update();
 		});
 
-		MenuItem open = new MenuItem("Open file");
+		MenuItem open = new MenuItem("Открыть");
 		open.setOnAction((e) -> {
 			ComponentCreator creator = new ComponentCreator();
 			FileChooser chooser = creator.getFileChooser();
@@ -72,7 +72,7 @@ public class Filemenu {
 			}
 		});
 
-		MenuItem save = new MenuItem("Save as");
+		MenuItem save = new MenuItem("Сохранить");
 		save.setOnAction((e) -> {
 			ComponentCreator creator = new ComponentCreator();
 			FileChooser chooser = creator.getFileChooser();
@@ -82,83 +82,83 @@ public class Filemenu {
 			}
 		});
 
-		Menu menu = new Menu("File");
+		Menu menu = new Menu("Файл");
 		menu.getItems().addAll(newFile, open, save);
 		fileBar.getMenus().add(menu);
 	}
 	
 	public void addTrainMenu() {
-		MenuItem add = new MenuItem("Add Train");
+		MenuItem add = new MenuItem("Добавить поезд");
 		add.setOnAction(e -> {
 			AddTrainDialog dialog = new AddTrainDialog(controller, table);
 			dialog.call();
 			table.update();
 		});
-		Menu menu = new Menu("Add");
+		Menu menu = new Menu("Добавить");
 		menu.getItems().add(add);
 		fileBar.getMenus().add(menu);
 	}
 	
 	public void addSearchMenu() {
-		MenuItem searchByDepOrArrStation = new MenuItem("DepOrArrStation");
+		MenuItem searchByDepOrArrStation = new MenuItem("Станция отпр. или приб.");
 		searchByDepOrArrStation.setOnAction(e -> {
 			SearchByDepStationOrArrStation dialog = new SearchByDepStationOrArrStation(controller);
 			dialog.call();
 		});
 		
-		MenuItem searchByNumberOrDepDate = new MenuItem("Number or Dep Date");
+		MenuItem searchByNumberOrDepDate = new MenuItem("Номер или дата отпр.");
 		searchByNumberOrDepDate.setOnAction(e -> {
 			SearchByNumberOrDepDate dialog = new SearchByNumberOrDepDate(controller);
 			dialog.call();
 		});
 		
-		MenuItem searchByDepTimeOrArrTime = new MenuItem("Dep/Arr Time");
+		MenuItem searchByDepTimeOrArrTime = new MenuItem("Время отпр. или приб.");
 		searchByDepTimeOrArrTime.setOnAction(e -> {
 			SearchByDepTimeOrArrTime dialog = new SearchByDepTimeOrArrTime(controller);
 			dialog.call();
 		});
 		
-		MenuItem searchByTravelTime = new MenuItem("Travel time");
+		MenuItem searchByTravelTime = new MenuItem("Время в пути");
 		searchByTravelTime.setOnAction(e -> {
 			SearchByTravelTime dialog = new SearchByTravelTime(controller);
 			dialog.call();
 		});
 		
-		Menu menu = new Menu("Search");
+		Menu menu = new Menu("Поиск");
 		menu.getItems().addAll(searchByDepOrArrStation, searchByNumberOrDepDate, searchByDepTimeOrArrTime, searchByTravelTime);
 		fileBar.getMenus().add(menu);
 	}
 	
 	public void addDeleteMenu() {
-		MenuItem searchByDepOrArrStation = new MenuItem("Dep Or Arr Station");
+		MenuItem searchByDepOrArrStation = new MenuItem("Станция отпр. или приб.");
 		searchByDepOrArrStation.setOnAction(e -> {
 			DeleteByDepOrArrStation dialog = new DeleteByDepOrArrStation(controller);
 			dialog.call();
 			table.update();
 		});
 		
-		MenuItem searchByNumberOrDepDate = new MenuItem("Number or Dep Date");
+		MenuItem searchByNumberOrDepDate = new MenuItem("Номер или дата отпр.");
 		searchByNumberOrDepDate.setOnAction(e -> {
 			DeleteByNumberOrDepDate dialog = new DeleteByNumberOrDepDate(controller);
 			dialog.call();
 			table.update();
 		});
 		
-		MenuItem searchByDepTimeOrArrTime = new MenuItem("Dep/Arr Time");
+		MenuItem searchByDepTimeOrArrTime = new MenuItem("Время отпр. или приб.");
 		searchByDepTimeOrArrTime.setOnAction(e -> {
 			DeleteByDepTimeArrTime dialog = new DeleteByDepTimeArrTime(controller);
 			dialog.call();
 			table.update();
 		});
 		
-		MenuItem searchByTravelTime = new MenuItem("Travel time");
+		MenuItem searchByTravelTime = new MenuItem("Время в пути");
 		searchByTravelTime.setOnAction(e -> {
 			DeleteByTravelTime dialog = new DeleteByTravelTime(controller);
 			dialog.call();
 			table.update();
 		});
 		
-		Menu menu = new Menu("Delete");
+		Menu menu = new Menu("Удаление");
 		menu.getItems().addAll(searchByDepOrArrStation, searchByNumberOrDepDate, searchByDepTimeOrArrTime, searchByTravelTime);
 		fileBar.getMenus().add(menu);
 	}

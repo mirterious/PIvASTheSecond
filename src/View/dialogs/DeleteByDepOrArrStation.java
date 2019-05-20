@@ -40,25 +40,25 @@ public class DeleteByDepOrArrStation {
 		pane.setHgap(10);
 		pane.setVgap(10);
 		
-		Label depStationLabel = creator.getLabel("Dep Station");
+		Label depStationLabel = creator.getLabel("Ст. отправления");
 		pane.add(depStationLabel, 0, 0);
 		
-		Label arrStationLabel = creator.getLabel("Arr Station");
-		pane.add(arrStationLabel, 0, 1);
+		Label arrStationLabel = creator.getLabel("Ст. прибытия");
+		pane.add(arrStationLabel, 2, 0);
 		
 		TextField departureStationText = creator.getTextField();
 		pane.add(departureStationText, 1, 0);
 		
 		TextField arrivingStationText = creator.getTextField();
-		pane.add(arrivingStationText, 1, 1);
+		pane.add(arrivingStationText, 3, 0);
 		
-		Button delete = creator.getButton("Delete");
+		Button delete = creator.getButton("Удалить");
 		delete.setOnAction(e -> {
 			controller.deleteByDepStation(departureStationText.getText());
 			controller.deleteByArrStation(arrivingStationText.getText());
 			table.update();
 		});
-		pane.add(delete, 0, 4);
+		pane.add(delete, 4, 0);
 
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}
@@ -66,8 +66,8 @@ public class DeleteByDepOrArrStation {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Searching");
-		stage.setHeight(500);
+		stage.setTitle("Удаление по станции прибытия или отправления");
+		stage.setHeight(600);
 		stage.setWidth(1200);
 		stage.show();
 	}

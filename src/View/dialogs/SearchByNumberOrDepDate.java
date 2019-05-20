@@ -42,10 +42,10 @@ public class SearchByNumberOrDepDate {
 		
 		GridPane pane = new GridPane();
 		
-		Label numberLabel = creator.getLabel("Number");
+		Label numberLabel = creator.getLabel("Номер");
 		pane.add(numberLabel, 0, 0);
 		
-		Label depDateLabel = creator.getLabel("Dep Date");
+		Label depDateLabel = creator.getLabel("Дата отпр.");
 		pane.add(depDateLabel, 0, 1);
 		
 		TextField numberText = creator.getTextField();
@@ -54,7 +54,7 @@ public class SearchByNumberOrDepDate {
 		DatePicker depDateText = creator.getDatePicker();
 		pane.add(depDateText, 1, 1);
 		
-		Button search = creator.getButton("Search");
+		Button search = creator.getButton("Найти");
 		search.setOnAction(e -> {
 			List<Train> trains = new ArrayList<>();
 			trains.addAll(controller.searchByNumber(numberText.getText()));
@@ -72,8 +72,8 @@ public class SearchByNumberOrDepDate {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Searching");
-		stage.setHeight(500);
+		stage.setTitle("Поиск по номеру или дате отправления");
+		stage.setHeight(600);
 		stage.setWidth(1200);
 		stage.show();
 	}

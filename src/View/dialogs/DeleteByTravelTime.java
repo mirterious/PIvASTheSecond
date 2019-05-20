@@ -46,34 +46,34 @@ public class DeleteByTravelTime {
 		TextField yearsText = creator.getTextField();
 		pane.add(yearsText, 0, 0);
 		
-		Label yearsExampleLabel = creator.getLabel("Years");
+		Label yearsExampleLabel = creator.getLabel("Кол-во лет");
 		pane.add(yearsExampleLabel, 1, 0);
 		
 		TextField monthsText = creator.getTextField();
 		pane.add(monthsText, 2, 0);
 		
-		Label monthsExampleLabel = creator.getLabel("Month");
+		Label monthsExampleLabel = creator.getLabel("Кол-во месяцев");
 		pane.add(monthsExampleLabel, 3, 0);
 		
 		TextField daysText = creator.getTextField();
 		pane.add(daysText, 4, 0);
 		
-		Label daysExampleLabel = creator.getLabel("Days");
+		Label daysExampleLabel = creator.getLabel("Кол-во дней");
 		pane.add(daysExampleLabel, 5, 0);
 		
 		TextField hoursText = creator.getTextField();
 		pane.add(hoursText, 6, 0);
 		
-		Label hoursExampleLabel = creator.getLabel("Hours");
+		Label hoursExampleLabel = creator.getLabel("Кол-во часов");
 		pane.add(hoursExampleLabel, 7, 0);
 		
 		TextField minutesText = creator.getTextField();
 		pane.add(minutesText, 8, 0);
 		
-		Label minutesExampleLabel = creator.getLabel("Minutes");
+		Label minutesExampleLabel = creator.getLabel("Кол-во минут");
 		pane.add(minutesExampleLabel, 9, 0);
 		
-		Button delete = creator.getButton("Delete");
+		Button delete = creator.getButton("Удалить");
 		delete.setOnAction(e -> {
 			String travelTime = yearsText.getText() + " "
 					+ monthsText.getText() + " " 
@@ -91,7 +91,7 @@ public class DeleteByTravelTime {
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Deleting by travel time");
+		stage.setTitle("Удаление по времени в пути");
 		stage.setHeight(500);
 		stage.setWidth(1200);
 		stage.show();

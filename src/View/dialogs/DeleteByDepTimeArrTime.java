@@ -42,50 +42,87 @@ public class DeleteByDepTimeArrTime {
 		
 		GridPane pane = new GridPane();
 		pane.setHgap(10);
-		pane.setVgap(10);
 		
-		Label depStationLabel = creator.getLabel("Bottom border");
-		pane.add(depStationLabel, 2, 0);
+		Label depatureBottomLabelHours = creator.getLabel("Часы");
+		pane.add(depatureBottomLabelHours, 0, 0);
 		
-		Label arrStationLabel = creator.getLabel("Top border");
-		pane.add(arrStationLabel, 2, 1);
+		Label depatureBottomLabelMinutes = creator.getLabel("Минуты");
+		pane.add(depatureBottomLabelMinutes, 1, 0);
 		
-		TextField depatureBottomText = creator.getTextField();
-		pane.add(depatureBottomText, 0, 0);
+		TextField depatureBottomTextHours = creator.getTextField();
+		pane.add(depatureBottomTextHours, 0, 1);
 		
-		TextField departureTopText = creator.getTextField();
-		pane.add(departureTopText, 0, 1);
+		TextField depatureBottomTextMinutes = creator.getTextField();
+		pane.add(depatureBottomTextMinutes, 1, 1);
 		
-		Label delTimeLabel = creator.getLabel("Dep time");
-		pane.add(delTimeLabel, 0, 2);
+		Label departureBottomLabel = creator.getLabel("Нижняя отпр.");
+		pane.add(departureBottomLabel, 3, 1);
 		
-		TextField arrivingBottomText = creator.getTextField();
-		pane.add(arrivingBottomText, 1, 1);
+		TextField departureTopTextHours = creator.getTextField();
+		pane.add(departureTopTextHours, 0, 2);
 		
-		TextField arrivingTopText = creator.getTextField();
-		pane.add(arrivingTopText, 1, 0);
+		TextField departureTopTextMinutes = creator.getTextField();
+		pane.add(departureTopTextMinutes, 1, 2);
 		
-		Label arrTimeLabel = creator.getLabel("Arr time");
-		pane.add(arrTimeLabel, 1, 2);
+		Label departureTopLabel = creator.getLabel("Верхняя отпр.");
+		pane.add(departureTopLabel, 3, 2);
 		
-		Button delete = creator.getButton("Delete");
+		TextField arrivingBottomTextHours = creator.getTextField();
+		pane.add(arrivingBottomTextHours, 0, 3);
+		
+		TextField arrivingBottomTextMinutes = creator.getTextField();
+		pane.add(arrivingBottomTextMinutes, 1, 3);
+		
+		Label arrivingBottomLabel = creator.getLabel("Нижняя приб.");
+		pane.add(arrivingBottomLabel, 3, 3);
+		
+		TextField arrivingTopTextHours = creator.getTextField();
+		pane.add(arrivingTopTextHours, 0, 4);
+		
+		TextField arrivingTopTextMinutes = creator.getTextField();
+		pane.add(arrivingTopTextMinutes, 1, 4);
+		
+		Label arrivingTopLabel = creator.getLabel("Верхняя приб.");
+		pane.add(arrivingTopLabel, 3, 4);
+		
+		Button delete = creator.getButton("Удалить");
 		delete.setOnAction(e -> {
-			controller.deleteByDepTime(parser.convertToTime(departureTopText.getText()), 
-					parser.convertToTime(depatureBottomText.getText()));
-			controller.deleteByArrTime(parser.convertToTime(arrivingTopText.getText()), 
-					parser.convertToTime(arrivingBottomText.getText()));
+			String depTimeBot = new String();
+			String depTimeTop = new String();
+			String arrTimeBot = new String();
+			String arrTimeTop = new String();
+			if (!depatureBottomTextHours.getText().isEmpty() && !depatureBottomTextMinutes.getText().isEmpty()) {
+				depTimeBot = depatureBottomTextHours.getText() + ":" + depatureBottomTextMinutes.getText();
+			}
+			if (!departureTopTextHours.getText().isEmpty() && !departureTopTextMinutes.getText().isEmpty()) {
+				depTimeTop = departureTopTextHours.getText() + ":" + departureTopTextMinutes.getText();
+			}
+			if (!arrivingBottomTextHours.getText().isEmpty() && !arrivingBottomTextMinutes.getText().isEmpty()) {
+				arrTimeBot = arrivingBottomTextHours.getText() + ":" + arrivingBottomTextMinutes.getText();
+			}
+			if (!arrivingTopTextHours.getText().isEmpty() && !arrivingTopTextHours.getText().isEmpty()) {
+				arrTimeTop = arrivingTopTextHours.getText() + ":" + arrivingTopTextMinutes.getText();
+			}
+			if(!depTimeBot.isEmpty() && !depTimeTop.isEmpty()) {
+				controller.deleteByDepTime(parser.convertToTime(depTimeTop), 
+						parser.convertToTime(depTimeBot));
+			}
+			if(!arrTimeBot.isEmpty() && !arrTimeTop.isEmpty()) {
+				controller.deleteByArrTime(parser.convertToTime(arrTimeTop), 
+						parser.convertToTime(arrTimeBot));
+			}
 			table.update();
 		});
-		pane.add(delete, 0, 4);
-
+		pane.add(delete, 0, 5);
+		pane.setVgap(1);
 		mainPane.getChildren().addAll(pane, table.getPane());	
 	}
 	
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Deleting");
-		stage.setHeight(500);
+		stage.setTitle("Удаления по времени отправления или прибытия");
+		stage.setHeight(600);
 		stage.setWidth(1200);
 		stage.show();
 	}
