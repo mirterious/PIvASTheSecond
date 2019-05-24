@@ -5,10 +5,10 @@ import java.util.List;
 import model.Train;
 import view.dialogs.AddTrainDialog;
 import view.dialogs.DeleteByDepOrArrStation;
-import view.dialogs.DeleteByDepTimeArrTime;
+import view.dialogs.DeleteByDepTimeOrArrTime;
 import view.dialogs.DeleteByNumberOrDepDate;
 import view.dialogs.DeleteByTravelTime;
-import view.dialogs.SearchByDepStationOrArrStation;
+import view.dialogs.SearchByDepOrArrStation;
 import view.dialogs.SearchByDepTimeOrArrTime;
 import view.dialogs.SearchByNumberOrDepDate;
 import view.dialogs.SearchByTravelTime;
@@ -102,7 +102,7 @@ public class Filemenu {
 	public void addSearchMenu() {
 		MenuItem searchByDepOrArrStation = new MenuItem("Станция отпр. или приб.");
 		searchByDepOrArrStation.setOnAction(e -> {
-			SearchByDepStationOrArrStation dialog = new SearchByDepStationOrArrStation(controller);
+			SearchByDepOrArrStation dialog = new SearchByDepOrArrStation(controller);
 			dialog.call();
 		});
 		
@@ -146,7 +146,7 @@ public class Filemenu {
 		
 		MenuItem searchByDepTimeOrArrTime = new MenuItem("Время отпр. или приб.");
 		searchByDepTimeOrArrTime.setOnAction(e -> {
-			DeleteByDepTimeArrTime dialog = new DeleteByDepTimeArrTime(controller);
+			DeleteByDepTimeOrArrTime dialog = new DeleteByDepTimeOrArrTime(controller);
 			dialog.call();
 			table.update();
 		});

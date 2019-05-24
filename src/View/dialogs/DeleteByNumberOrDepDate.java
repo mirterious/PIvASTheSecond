@@ -4,15 +4,12 @@ import controller.Controller;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.ComponentCreator;
+import view.dialogs.panes.NumberOrDepDatePane;
 
 public class DeleteByNumberOrDepDate {
 
@@ -24,8 +21,11 @@ public class DeleteByNumberOrDepDate {
 	
 	private Pane mainPane;
 	
+	private NumberOrDepDatePane pane;
+	
 	public DeleteByNumberOrDepDate(Controller controller) {
 		this.controller = controller;
+		pane = new NumberOrDepDatePane();
 		stage = new Stage();
 		mainPane = new VBox();
 		creator = new ComponentCreator();
@@ -33,34 +33,16 @@ public class DeleteByNumberOrDepDate {
 	}
 	
 	private void buildDialog() {
-		
-		GridPane pane = new GridPane();
-		pane.setHgap(10);
-		pane.setVgap(10);
-		
-		Label numberLabel = creator.getLabel("Номер");
-		pane.add(numberLabel, 0, 0);
-		
-		Label depDateLabel = creator.getLabel("Дата отпр.");
-		pane.add(depDateLabel, 0, 1);
-		
-		TextField numberText = creator.getTextField();
-		pane.add(numberText, 1, 0);
-		
-		DatePicker depDateText = creator.getDatePicker();
-		pane.add(depDateText, 1, 1);
-		
 		Button delete = creator.getButton("Удалить");
 		delete.setOnAction(e -> {
 			int recordsBeforeDeleting = controller.getTrains().size();
-			controller.deleteByNumber(numberText.getText());
-			controller.deleteByDepDate(depDateText.getValue());
+			controller.deleteByNumber(pane.getNumber());
+			controller.deleteByDepDate(pane.getDate());
 			int count = recordsBeforeDeleting - controller.getTrains().size();
 			showAlert("Удалено " + count + " Записей");
 		});
-		pane.add(delete, 0, 4);
 
-		mainPane.getChildren().addAll(pane);	
+		mainPane.getChildren().addAll(pane.getPane(), delete);	
 	}
 	
 	public void call() {

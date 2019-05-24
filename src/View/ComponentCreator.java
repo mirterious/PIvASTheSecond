@@ -19,7 +19,6 @@ public class ComponentCreator {
 		Button button = new Button(name);
 		button.setMaxSize(100, 30);
 		button.setMinSize(100, 30);
-		button.setStyle("");
 		return button;
 	}
 	
@@ -52,6 +51,13 @@ public class ComponentCreator {
 		textField.setMinWidth(100);
 		return textField;
 	}
+	
+	public TextField getTextField(String name) {
+		TextField textField = new TextField(name);
+		textField.setMaxWidth(100);
+		textField.setMinWidth(100);
+		return textField;
+	}
 
 	public DatePicker getDatePicker() {
 		DatePicker datePicker = new DatePicker();
@@ -63,8 +69,8 @@ public class ComponentCreator {
 	
     public FileChooser getFileChooser() {
     	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Chooser");
-    	fileChooser.setInitialFileName("filename.xml");
+    	fileChooser.setTitle("Выбрать файл");
+    	fileChooser.setInitialFileName("file.xml");
     	fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
     	ExtensionFilter filter = new ExtensionFilter("XML", "*.xml");
     	fileChooser.getExtensionFilters().add(filter);

@@ -1,20 +1,18 @@
 package view.dialogs;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import controller.Controller;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Train;
 import view.ComponentCreator;
 import view.Table;
+import view.dialogs.panes.NumberOrDepDatePane;
 
 public class SearchByNumberOrDepDate {
 
@@ -28,45 +26,31 @@ public class SearchByNumberOrDepDate {
 	
 	private Table table;
 	
+	private NumberOrDepDatePane pane;
+	
 	public SearchByNumberOrDepDate(Controller controller) {
 		this.controller = controller;
 		table = new Table(controller.copy());
-		table.update();
+		pane = new NumberOrDepDatePane();
 		stage = new Stage();
 		mainPane = new VBox();
 		creator = new ComponentCreator();
+		table.update();
 		buildDialog();
 	}
 	
 	private void buildDialog() {
 		
-		GridPane pane = new GridPane();
-		
-		Label numberLabel = creator.getLabel("Номер");
-		pane.add(numberLabel, 0, 0);
-		
-		Label depDateLabel = creator.getLabel("Дата отпр.");
-		pane.add(depDateLabel, 0, 1);
-		
-		TextField numberText = creator.getTextField();
-		pane.add(numberText, 1, 0);
-		
-		DatePicker depDateText = creator.getDatePicker();
-		pane.add(depDateText, 1, 1);
-		
 		Button search = creator.getButton("Найти");
 		search.setOnAction(e -> {
-			List<Train> trains = new ArrayList<>();
-			trains.addAll(controller.searchByNumber(numberText.getText()));
-			trains.addAll(controller.searchByDepDate(depDateText.getValue()));
+			Set<Train> trains = new HashSet<>();
+			trains.addAll(controller.searchByNumber(pane.getNumber()));
+			trains.addAll(controller.searchByDepDate(pane.getDate()));
 			table.recreate();
 			table.addContent(trains);
 			table.update();
 		});
-		pane.add(search, 0, 3);
-		pane.setHgap(10);
-		pane.setVgap(10);
-		mainPane.getChildren().addAll(pane, table.getPane());	
+		mainPane.getChildren().addAll(pane.getPane(), search, table.getPane());	
 	}
 	
 	public void call() {

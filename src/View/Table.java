@@ -1,6 +1,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -75,7 +76,7 @@ public class Table {
 		table.getItems().addAll(records);
 	}
 	
-	public void addContent(List<Train> trains) {
+	public void addContent(Collection<Train> trains) {
 		this.trains.addAll(trains);
 		update();
 	}
@@ -184,7 +185,7 @@ public class Table {
 		TableColumn<ShowTable, String> column4 = new TableColumn<>("Дата отправления");
 		column4.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
 
-		TableColumn<ShowTable, String> column5 = new TableColumn<>("Дата пребытия");
+		TableColumn<ShowTable, String> column5 = new TableColumn<>("Дата прибытия");
 		column5.setCellValueFactory(new PropertyValueFactory<>("arrivingDate"));
 		
 		TableColumn<ShowTable, String> column6 = new TableColumn<>("Время в пути");
@@ -219,7 +220,8 @@ public class Table {
 				int value = Integer.parseInt(text.getText());
 				if (value > 0) {
 					setAmountOfRecordsPerPage(value);
-					setPage(currentPage);
+					setLastPage();
+					update();
 				} else {
 					throw new IllegalArgumentException();
 				}

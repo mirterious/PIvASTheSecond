@@ -1,53 +1,45 @@
 package view.dialogs;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import controller.Controller;
 import controller.DateAndTimeParser;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Train;
 import view.ComponentCreator;
-import view.Table;
 import view.dialogs.panes.DepTimeOrArrTimePane;
 
-public class SearchByDepTimeOrArrTime {
+public class DeleteByDepTimeOrArrTime {
 
 	private Stage stage;
-	
+
 	private Controller controller;
-	
+
 	private ComponentCreator creator;
-	
+
 	private Pane mainPane;
-	
-	private Table table;
-	
+
 	private DateAndTimeParser parser;
 	
 	private DepTimeOrArrTimePane pane;
-	
-	public SearchByDepTimeOrArrTime(Controller controller) {
+
+	public DeleteByDepTimeOrArrTime(Controller controller) {
 		this.controller = controller;
-		table = new Table(controller.copy());
-		pane = new DepTimeOrArrTimePane();
-		table.update();
 		stage = new Stage();
 		parser = new DateAndTimeParser();
 		mainPane = new VBox();
-		mainPane.getChildren().add(pane.getPane());
 		creator = new ComponentCreator();
+		pane = new DepTimeOrArrTimePane();
+		mainPane.getChildren().add(pane.getPane());
 		buildDialog();
 	}
-	
+
 	private void buildDialog() {
-		
-		Button search = creator.getButton("Найти");
-		search.setOnAction(e -> {
+		Button delete = creator.getButton("Удалить");
+		delete.setOnAction(e -> {
 			String depTimeBot = new String();
 			String depTimeTop = new String();
 			String arrTimeBot = new String();
@@ -64,28 +56,32 @@ public class SearchByDepTimeOrArrTime {
 			if (!pane.getArrTopHours().equals("") && !pane.getArrTopMinutes().equals("")) {
 				arrTimeTop = pane.getArrTopHours() + ":" + pane.getArrTopMinutes();
 			}
-			Set<Train> set = new HashSet<>();
-			if(!depTimeBot.isEmpty() && !depTimeTop.isEmpty()) {
-				set.addAll(controller.searchByDepTime(parser.convertToTime(depTimeTop),
-						parser.convertToTime(depTimeBot)));
+			int recordsBeforeDeleting = controller.getTrains().size();
+			if (!depTimeBot.isEmpty() && !depTimeTop.isEmpty()) {
+				controller.deleteByDepTime(parser.convertToTime(depTimeTop), parser.convertToTime(depTimeBot));
 			}
-			if(!arrTimeBot.isEmpty() && !arrTimeTop.isEmpty()) {
-				set.addAll(controller.searchByArrTime(parser.convertToTime(arrTimeTop),
-						parser.convertToTime(arrTimeBot)));
+			if (!arrTimeBot.isEmpty() && !arrTimeTop.isEmpty()) {
+				controller.deleteByArrTime(parser.convertToTime(arrTimeTop), parser.convertToTime(arrTimeBot));
 			}
-			table.recreate();
-			table.addContent(set);
-			table.update();
+			int count = recordsBeforeDeleting - controller.getTrains().size();
+			showAlert("Удалено " + count + " Записей");
 		});
-		mainPane.getChildren().addAll(search, table.getPane());	
+		mainPane.getChildren().add(delete);
 	}
-	
+
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Поиск по времени прибытия или отправления");
-		stage.setHeight(600);
-		stage.setWidth(1200);
+		stage.setTitle("Удаления по времени отправления или прибытия");
+		stage.setHeight(280);
+		stage.setWidth(340);
 		stage.show();
+	}
+
+	private void showAlert(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Успех");
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 }

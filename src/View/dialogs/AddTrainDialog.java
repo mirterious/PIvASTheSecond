@@ -25,17 +25,17 @@ import view.Table;
 public class AddTrainDialog {
 
 	private Stage stage;
-	
+
 	private Controller controller;
-	
+
 	private ComponentCreator creator;
-	
+
 	private Pane mainPane;
-	
+
 	private Table table;
-	
+
 	private DateAndTimeParser parser;
-	
+
 	public AddTrainDialog(Controller controller, Table table) {
 		this.controller = controller;
 		this.table = table;
@@ -45,65 +45,65 @@ public class AddTrainDialog {
 		parser = new DateAndTimeParser();
 		buildDialog();
 	}
-	
+
 	private void buildDialog() {
-		
+
 		GridPane pane = new GridPane();
-		
+
 		TextField numberText = creator.getTextField();
 		pane.add(numberText, 0, 0);
-		
+
 		Label numberLabel = creator.getLabel("Номер");
 		pane.add(numberLabel, 0, 1);
-		
+
 		Label depStationLabel = creator.getLabel("Ст. отпр.");
 		pane.add(depStationLabel, 1, 0);
-		
+
 		Label arrStationLabel = creator.getLabel("Ст. приб.");
 		pane.add(arrStationLabel, 1, 1);
-		
+
 		TextField departureStationText = creator.getTextField();
 		pane.add(departureStationText, 2, 0);
-		
+
 		TextField arrivingStationText = creator.getTextField();
 		pane.add(arrivingStationText, 2, 1);
 
 		Label depDateLabel = creator.getLabel("Дата отпр.");
 		pane.add(depDateLabel, 3, 0);
-		
+
 		Label arrDateLabel = creator.getLabel("Дата приб.");
 		pane.add(arrDateLabel, 3, 1);
-		
+
 		DatePicker departureDateText = creator.getDatePicker();
 		pane.add(departureDateText, 4, 0);
 
 		DatePicker arrivingDateText = creator.getDatePicker();
 		pane.add(arrivingDateText, 4, 1);
-		
+
 		TextField departureTimeTextHours = creator.getTextField();
 		pane.add(departureTimeTextHours, 5, 0);
-		
+
 		Label departureTimeHoursLabel = creator.getLabel("Часы");
 		pane.add(departureTimeHoursLabel, 5, 2);
-		
+
 		TextField departureTimeTextMinutes = creator.getTextField();
 		pane.add(departureTimeTextMinutes, 6, 0);
-		
+
 		Label departureTimeMinutesLabel = creator.getLabel("Минуты");
 		pane.add(departureTimeMinutesLabel, 6, 2);
-		
+
 		TextField arrivingTimeTextHours = creator.getTextField();
 		pane.add(arrivingTimeTextHours, 5, 1);
-		
+
 		TextField arrivingTimeTextMinutes = creator.getTextField();
 		pane.add(arrivingTimeTextMinutes, 6, 1);
-		
+
 		Label departureTimeLabel = creator.getLabel("Время отправления");
 		pane.add(departureTimeLabel, 8, 0);
-		
+
 		Label arrivingTimeLabel = creator.getLabel("Время прибытия");
 		pane.add(arrivingTimeLabel, 8, 1);
-		
+
 		Button addTrain = creator.getButton("Add");
 		addTrain.setOnAction(e -> {
 			String number = numberText.getText();
@@ -130,7 +130,7 @@ public class AddTrainDialog {
 				departureTimeTextMinutes.setText("");
 				arrivingTimeTextHours.setText("");
 				arrivingTimeTextMinutes.setText("");
-				departureDateText.setValue(LocalDate.now());	
+				departureDateText.setValue(LocalDate.now());
 				arrivingDateText.setValue(LocalDate.now());
 			} else {
 				controller.addTrain(train);
@@ -140,9 +140,9 @@ public class AddTrainDialog {
 		pane.add(addTrain, 4, 4);
 		pane.setHgap(10);
 		pane.setVgap(10);
-		mainPane.getChildren().addAll(pane);	
+		mainPane.getChildren().addAll(pane);
 	}
-	
+
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
@@ -151,7 +151,7 @@ public class AddTrainDialog {
 		stage.setWidth(950);
 		stage.show();
 	}
-	
+
 	private void showAlert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Ошибка");

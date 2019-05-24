@@ -1,9 +1,9 @@
 package view.dialogs;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import controller.Controller;
-import controller.DateAndTimeParser;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 import model.Train;
 import view.ComponentCreator;
 import view.Table;
-import view.dialogs.panes.TravelTimePane;
+import view.dialogs.panes.DepOrArrStationPane;
 
-public class SearchByTravelTime {
+public class SearchByDepOrArrStation {
 
 	private Stage stage;
 	
@@ -26,43 +26,37 @@ public class SearchByTravelTime {
 	
 	private Table table;
 	
-	private DateAndTimeParser parser;
+	private DepOrArrStationPane pane;
 	
-	private TravelTimePane pane;
-	
-	public SearchByTravelTime(Controller controller) {
+	public SearchByDepOrArrStation(Controller controller) {
 		this.controller = controller;
 		table = new Table(controller.copy());
-		pane = new TravelTimePane();
-		parser = new DateAndTimeParser();
+		pane = new DepOrArrStationPane();
 		stage = new Stage();
 		mainPane = new VBox();
 		creator = new ComponentCreator();
+		mainPane.getChildren().addAll(pane.getPane());
 		table.update();
 		buildDialog();
 	}
 	
-	private void buildDialog() {		
+	private void buildDialog() {
 		Button search = creator.getButton("Найти");
 		search.setOnAction(e -> {
-			List<Train> trains = new ArrayList<>();
-			String travelTime = pane.getYears() + " "
-					+ pane.getMonth() + " " 
-					+ pane.getDays() + " " 
-					+ pane.getHours() + " " 
-					+ pane.getMinutes();
-			trains = controller.searchByTravelTime(parser.convertToTravelTime(travelTime));
+			Set<Train> trains = new HashSet<>();
+			trains.addAll(controller.searchByDepStation(pane.getDepStation()));
+			trains.addAll(controller.searchByArrStation(pane.getArrStation()));
 			table.recreate();
 			table.addContent(trains);
 			table.update();
 		});
-		mainPane.getChildren().addAll(pane.getPane(), search, table.getPane());	
+		mainPane.getChildren().addAll(search, table.getPane());
 	}
 	
 	public void call() {
 		Scene scene = new Scene(mainPane);
 		stage.setScene(scene);
-		stage.setTitle("Поиск по времени в пути");
+		stage.setTitle("Поиск по станции прибытия или отправления");
 		stage.setHeight(600);
 		stage.setWidth(1200);
 		stage.show();

@@ -6,10 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import view.dialogs.AddTrainDialog;
-import view.dialogs.DeleteByDepTimeArrTime;
+import view.dialogs.DeleteByDepOrArrStation;
+import view.dialogs.DeleteByDepTimeOrArrTime;
 import view.dialogs.DeleteByNumberOrDepDate;
 import view.dialogs.DeleteByTravelTime;
-import view.dialogs.SearchByDepStationOrArrStation;
+import view.dialogs.SearchByDepOrArrStation;
 import view.dialogs.SearchByDepTimeOrArrTime;
 import view.dialogs.SearchByNumberOrDepDate;
 import view.dialogs.SearchByTravelTime;
@@ -38,7 +39,7 @@ public class SearchAndDeletePanel {
 	private void addSearchButton() {
 		Button searchByDepOrArrStation = creator.getButton();
 		searchByDepOrArrStation.setOnAction(e -> {
-			SearchByDepStationOrArrStation dialog = new SearchByDepStationOrArrStation(controller);
+			SearchByDepOrArrStation dialog = new SearchByDepOrArrStation(controller);
 			dialog.call();
 		});	
 		mainPane.add(searchByDepOrArrStation, 1, 1);
@@ -70,7 +71,7 @@ public class SearchAndDeletePanel {
 	private void addDeleteButtons() {
 		Button deleteByDepOrArrStation = creator.getButton();
 		deleteByDepOrArrStation.setOnAction(e -> {
-			DeleteByNumberOrDepDate dialog = new DeleteByNumberOrDepDate(controller);
+			DeleteByDepOrArrStation dialog = new DeleteByDepOrArrStation(controller);
 			dialog.call();
 			table.update();
 		});	
@@ -86,7 +87,7 @@ public class SearchAndDeletePanel {
 		
 		Button deleteByDepOrArrTime = creator.getButton();
 		deleteByDepOrArrTime.setOnAction(e -> {
-			DeleteByDepTimeArrTime dialog = new DeleteByDepTimeArrTime(controller);
+			DeleteByDepTimeOrArrTime dialog = new DeleteByDepTimeOrArrTime(controller);
 			dialog.call();
 			table.update();
 		});
@@ -110,7 +111,7 @@ public class SearchAndDeletePanel {
 		});
 		mainPane.add(addButton, 0, 0);
 		
-		Label depArrStationLabel = creator.getLabel("Ст. преб или отпр.");
+		Label depArrStationLabel = creator.getLabel("Ст. приб или отпр.");
 		depArrStationLabel.setMinWidth(200);
 		mainPane.add(depArrStationLabel, 1, 0);
 		
